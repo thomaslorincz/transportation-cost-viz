@@ -4,6 +4,7 @@ const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const CompressPlugin = require('compression-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -69,6 +70,12 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: '[name].css',
       chunkFilename: '[name].css',
+    }),
+    new CompressPlugin({
+      test: /\.(js|css|csv)$/,
+      algorithm: 'brotliCompress',
+      filename: '[path].br[query]',
+      deleteOriginalAssets: true,
     }),
   ],
 };
