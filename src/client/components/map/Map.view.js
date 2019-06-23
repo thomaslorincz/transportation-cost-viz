@@ -29,6 +29,20 @@ export default class MapView extends View {
     }));
 
     this.map.on('load', () => {
+      this.map.addLayer({
+        'id': 'transportCosts',
+        'source': {
+          type: 'vector',
+          url: 'mapbox://thomaslorincz.a3jpqnoj',
+        },
+        'source-layer': 'transport_costs_v2',
+        'type': 'circle',
+        'paint': {
+          'circle-color': '#FFFF00',
+          'circle-radius': 1,
+        },
+      });
+
       this.container.dispatchEvent(new CustomEvent('loaded'));
     });
   }
