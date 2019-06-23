@@ -28,18 +28,44 @@ export default class MapView extends View {
       customAttribution: attribution,
     }));
 
+    this.costStyling = {
+      property: 'cost',
+      stops: [
+        [5741, '#F9E200'],
+        [9759, '#DA102C'],
+        [14313, '#9B1BBA'],
+        [100000, '#213E9A'],
+      ],
+    };
+
+    this.proportionStyling = {
+      property: 'proportion',
+      stops: [
+        [6, '#F9E200'],
+        [10, '#DA102C'],
+        [17, '#9B1BBA'],
+        [100, '#213E9A'],
+      ],
+    };
+
     this.map.on('load', () => {
       this.map.addLayer({
         'id': 'transportCosts',
         'source': {
           type: 'vector',
-          url: 'mapbox://thomaslorincz.a3jpqnoj',
+          url: 'mapbox://thomaslorincz.87xvl8hq',
         },
-        'source-layer': 'transport_costs_v2',
+        'source-layer': 'transport_costs_v3',
         'type': 'circle',
         'paint': {
-          'circle-color': '#FFFF00',
-          'circle-radius': 1,
+          'circle-color': this.costStyling,
+          'circle-radius': [
+            'interpolate', ['linear'], ['zoom'],
+            0, 1,
+            11, 1,
+            13, 2,
+            22, 2,
+          ],
         },
       });
 
