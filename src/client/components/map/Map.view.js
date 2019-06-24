@@ -28,25 +28,23 @@ export default class MapView extends View {
       customAttribution: attribution,
     }));
 
-    this.costStyling = {
-      property: 'cost',
-      stops: [
-        [5741, '#F9E200'],
-        [9759, '#DA102C'],
-        [14313, '#9B1BBA'],
-        [100000, '#213E9A'],
-      ],
-    };
+    this.costStyling = [
+      'case',
+      ['>', ['get', 'cost'], 14313], '#213E9A',
+      ['>', ['get', 'cost'], 9759], '#9B1BBA',
+      ['>', ['get', 'cost'], 5741], '#DA102C',
+      ['>=', ['get', 'cost'], 0], '#F9E200',
+      '#000000',
+    ];
 
-    this.proportionStyling = {
-      property: 'proportion',
-      stops: [
-        [6, '#F9E200'],
-        [10, '#DA102C'],
-        [17, '#9B1BBA'],
-        [100, '#213E9A'],
-      ],
-    };
+    this.proportionStyling = [
+      'case',
+      ['>', ['get', 'proportion'], 17], '#213E9A',
+      ['>', ['get', 'proportion'], 10], '#9B1BBA',
+      ['>', ['get', 'proportion'], 6], '#DA102C',
+      ['>=', ['get', 'proportion'], 0], '#F9E200',
+      '#000000',
+    ];
 
     this.labels = {
       cost: [
