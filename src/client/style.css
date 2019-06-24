@@ -47,13 +47,7 @@ body {
   margin-bottom: 10px;
 }
 
-#legend-properties {
-  display: flex;
-  position: relative;
-  flex-direction: column;
-}
-
-#legend-entries {
+.legend-entries {
   display: flex;
   position: relative;
   flex-direction: column;
@@ -74,15 +68,6 @@ body {
   height: 14px;
   border-radius: 50%;
   margin-right: 10px;
-}
-
-.black-color {
-  background-color: black;
-}
-
-.white-color {
-  background-color: white;
-  border: 1px solid black;
 }
 
 .yellow-color {
