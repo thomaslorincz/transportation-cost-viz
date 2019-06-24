@@ -48,9 +48,25 @@ export default class MapView extends View {
       ],
     };
 
+    this.labels = {
+      cost: [
+        '$0 - $5741 (1st Quartile)',
+        '$5742 - $9759 (2nd Quartile)',
+        '$9760 - $14313 (3rd Quartile)',
+        '$14314 - (4th Quartile)',
+      ],
+      proportion: [
+        '0% - 6% (1st Quartile)',
+        '7% - 10% (2nd Quartile)',
+        '11% - 17% (3rd Quartile)',
+        '18% - (4th Quartile)',
+      ],
+    };
+
+
     this.map.on('load', () => {
       this.map.addLayer({
-        'id': 'transportCosts',
+        'id': 'dataLayer',
         'source': {
           type: 'vector',
           url: 'mapbox://thomaslorincz.87xvl8hq',
@@ -71,5 +87,45 @@ export default class MapView extends View {
 
       this.container.dispatchEvent(new CustomEvent('loaded'));
     });
+
+    document.querySelectorAll('.property-entry').forEach((entry) => {
+      entry.addEventListener('click', (event) => {
+        this.container.dispatchEvent(new CustomEvent('propertyClicked', {
+          detail: event.target.dataset.value,
+        }));
+      });
+    });
+  }
+
+  /**
+   * Redraw data on the map. Colour based on property.
+   * @param {string} property
+   */
+  draw(property) {
+    const oldSelected = document.querySelector('.selected');
+    if (oldSelected) {
+      oldSelected.classList.remove('selected');
+    }
+    document.getElementById(`${property}-entry`).classList.add('selected');
+
+    if (property === 'cost') {
+      this.map.setPaintProperty(
+          'dataLayer',
+          'circle-color',
+          this.costStyling
+      );
+    } else if (property === 'proportion') {
+      this.map.setPaintProperty(
+          'dataLayer',
+          'circle-color',
+          this.proportionStyling
+      );
+    }
+
+    const labels = this.labels[property];
+    document.getElementById('first-quartile').innerText = labels[0];
+    document.getElementById('second-quartile').innerText = labels[1];
+    document.getElementById('third-quartile').innerText = labels[2];
+    document.getElementById('fourth-quartile').innerText = labels[3];
   }
 }
