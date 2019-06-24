@@ -21,3 +21,123 @@ body {
   height: 100%;
   z-index: 0;
 }
+
+#legend {
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  height: auto;
+  top: 20px;
+  right: 20px;
+  border-radius: 20px;
+  z-index: 1;
+  background-color: white;
+  padding: 10px 20px;
+}
+
+#legend-title {
+  display: block;
+  position: relative;
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+  font-size: 20px;
+  height: 24px;
+  vertical-align: middle;
+  line-height: 24px;
+  margin-bottom: 10px;
+}
+
+#legend-properties {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+}
+
+#legend-entries {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+}
+
+.legend-entry {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  margin: 10px;
+  border-radius: 10px;
+}
+
+.entry-color {
+  display: inline-block;
+  position: relative;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.black-color {
+  background-color: black;
+}
+
+.white-color {
+  background-color: white;
+  border: 1px solid black;
+}
+
+.yellow-color {
+  background-color: #F9E200;
+}
+
+.red-color {
+  background-color: #DA102C;
+}
+
+.magenta-color {
+  background-color: #9B1BBA;
+}
+
+.purple-color {
+  background-color: #213E9A;
+}
+
+.entry-label {
+  display: inline-block;
+  position: relative;
+  font-size: 14px;
+  font-family: "Montserrat", sans-serif;
+}
+
+.property {
+  font-size: 16px;
+}
+
+.divider {
+  width: 100%;
+  height: 2px;
+  background-color: gainsboro;
+  border-radius: 1px;
+}
+
+.property-entry {
+  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 18px;
+}
+
+.property-entry:first-child {
+  margin-bottom: 2px;
+}
+
+.property-entry:last-child {
+  margin-top: 2px;
+}
+
+.property-entry:hover {
+  background-color: gainsboro;
+}
+
+.property-entry.selected {
+  background-color: gainsboro;
+  border: 1px solid grey;
+}
