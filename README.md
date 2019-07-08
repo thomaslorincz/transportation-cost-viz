@@ -20,6 +20,11 @@ npm run dev
 ```
 npm run prod
 ```
+### Test
+Testing is performed using the Mocha + Chai package combination. Webpack is used to bundle the test files into test.bundle.js before the tests are run.
+```
+npm test
+```
 ### Deploy
 After finishing work on a feature:
 ```
