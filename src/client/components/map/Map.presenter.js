@@ -5,20 +5,17 @@ export default class MapPresenter extends Presenter {
   /**
    * @param {AppModel} model
    * @param {MapView} view
+   * @param {EventEmitter} emitter
    */
-  constructor(model, view) {
-    super(model, view);
+  constructor(model, view, emitter) {
+    super(model, view, emitter);
 
-    document.addEventListener('updateMap', (event) => {
-      this.view.draw(event.detail);
-    });
-
-    this.view.container.addEventListener('loaded', () => {
+    this.emitter.on('loaded', () => {
       this.model.initialDraw();
     });
 
-    this.view.container.addEventListener('propertyClicked', (event) => {
-      this.model.updateProperty(event.detail);
+    this.emitter.on('propertyClicked', (property) => {
+      this.model.updateProperty(property);
     });
   }
 }

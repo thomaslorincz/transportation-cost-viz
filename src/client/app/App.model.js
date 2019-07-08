@@ -1,32 +1,21 @@
 import Model from '../superclasses/Model';
 
-/**
- * Model that stores and controls the app's data and state.
- */
+/** Model that stores and controls the app's data and state. */
 export default class AppModel extends Model {
-  // eslint-disable-next-line
-  constructor() {
-    super();
-
+  /** @param {EventEmitter} emitter */
+  constructor(emitter) {
+    super(emitter);
     this.property = 'cost';
   }
 
-  /**
-   * A method for dispatching the initial draw event of the app.
-   */
+  /** A method for dispatching the initial draw event of the app. */
   initialDraw() {
-    document.dispatchEvent(new CustomEvent('updateMap', {
-      detail: this.property,
-    }));
+    this.emitter.emit('updateMap', this.property);
   }
 
-  /**
-   * @param {string} property
-   */
+  /** @param {string} property */
   updateProperty(property) {
     this.property = property;
-    document.dispatchEvent(new CustomEvent('updateMap', {
-      detail: this.property,
-    }));
+    this.emitter.emit('updateMap', this.property);
   }
 }

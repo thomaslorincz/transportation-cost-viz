@@ -1,13 +1,14 @@
 import mapboxgl from 'mapbox-gl';
 import View from '../../superclasses/View';
 
-// eslint-disable-next-line
+/** A component that draws the map-related displays. */
 export default class MapView extends View {
   /**
    * @param {HTMLElement} container
+   * @param {EventEmitter} emitter
    */
-  constructor(container) {
-    super(container);
+  constructor(container, emitter) {
+    super(container, emitter);
 
     mapboxgl.accessToken = 'pk.eyJ1IjoidGhvbWFzbG9yaW5jeiIsImEiOiJjamx5aXVwaH' +
         'AxamZzM3dsaWdkZ3Q2eGJyIn0.mXjlp9c3l2-NBoS1uaEUdw';
@@ -83,14 +84,12 @@ export default class MapView extends View {
         },
       });
 
-      this.container.dispatchEvent(new CustomEvent('loaded'));
+      this.emitter.emit('loaded');
     });
 
     document.querySelectorAll('.property-entry').forEach((entry) => {
       entry.addEventListener('click', (event) => {
-        this.container.dispatchEvent(new CustomEvent('propertyClicked', {
-          detail: event.target.dataset.value,
-        }));
+        this.emitter.emit('propertyClicked', event.target.dataset.value);
       });
     });
   }

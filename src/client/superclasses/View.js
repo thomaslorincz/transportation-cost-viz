@@ -4,8 +4,10 @@
 export default class View {
   /**
    * @param {HTMLElement} container
+   * @param {EventEmitter} emitter
    */
-  constructor(container) {
+  constructor(container, emitter) {
     this.container = container;
+    this.emitter = emitter;
   }
 }
