@@ -12,7 +12,8 @@
     "not ie_mob 11"
   ],
   "scripts": {
-    "test": "webpack --mode production --config webpack.test.config.js && mocha test/test.build.js",
+    "pretest": "webpack --mode production --config webpack.test.config.js",
+    "test": "mocha test/test.build.js",
     "posttest": "rimraf test/test.build.js",
     "buildDev": "rimraf dist && webpack --mode development --config webpack.server.config.js && webpack --mode development --config webpack.dev.config.js",
     "dev": "npm run buildDev && npm start",
