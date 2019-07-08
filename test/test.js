@@ -36,7 +36,7 @@ describe('AppModel', () => {
         mapUpdated = true;
       });
 
-      model.initialDraw();
+      model.updateProperty('proportion');
       expect(mapUpdated).to.be.true;
     });
   });
