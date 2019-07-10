@@ -2,7 +2,7 @@ const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CompressPlugin = require('compression-webpack-plugin');
 
@@ -18,11 +18,7 @@ module.exports = {
   target: 'web',
   optimization: {
     minimizer: [
-      new UglifyJsPlugin({
-        cache: true,
-        parallel: true,
-        sourceMap: true,
-      }),
+      new TerserPlugin({parallel: true}),
       new OptimizeCSSAssetsPlugin({}),
     ],
     runtimeChunk: 'single',
@@ -48,11 +44,6 @@ module.exports = {
           failOnError: true,
           failOnWarning: false,
         },
-      },
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: {loader: 'babel-loader'},
       },
       {
         test: /\.html$/,

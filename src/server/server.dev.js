@@ -11,7 +11,6 @@ const port = process.env.PORT || 8080;
 const compiler = webpack(config);
 
 app.use(helmet());
-
 app.use(webpackDevMiddleware(compiler, {publicPath: config.output.publicPath}));
 app.use(webpackHotMiddleware(compiler));
 
