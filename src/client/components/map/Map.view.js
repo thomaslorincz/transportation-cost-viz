@@ -52,13 +52,13 @@ export default class MapView extends View {
         '$0 - $5741 (1st Quartile)',
         '$5742 - $9759 (2nd Quartile)',
         '$9760 - $14313 (3rd Quartile)',
-        '$14314 - (4th Quartile)',
+        '$14314+ (4th Quartile)',
       ],
       proportion: [
         '0% - 6% (1st Quartile)',
         '7% - 10% (2nd Quartile)',
         '11% - 17% (3rd Quartile)',
-        '18% - (4th Quartile)',
+        '18%+ (4th Quartile)',
       ],
     };
 
