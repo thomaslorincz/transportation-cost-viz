@@ -1,10 +1,10 @@
-import path from 'path';
-import express from 'express';
+import * as path from 'path';
+import * as express from 'express';
 import helmet from 'helmet';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
-import config from '../../webpack.dev.config.js';
+import * as config from '../../webpack.dev.config.js';
 
 const app = express();
 const port = process.env.PORT || 8080;
