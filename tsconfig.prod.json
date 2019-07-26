@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist",
+    "module": "umd",
+    "target": "es2015",
+    "sourceMap": false,
+    "noImplicitAny": true,
+    "strictNullChecks": true
+  }
+}
