@@ -21,9 +21,6 @@ module.exports = (env, argv) => {
       __filename: false,
     },
     externals: [nodeExternals()],
-    resolve: {
-      extensions: ['.ts'],
-    },
     module: {
       rules: [
         {
