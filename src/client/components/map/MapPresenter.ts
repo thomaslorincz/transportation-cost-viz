@@ -3,10 +3,7 @@ import AppModel from '../../app/AppModel';
 import MapView from './MapView';
 import * as EventEmitter from 'eventemitter3';
 
-export default class MapPresenter extends Presenter {
-  protected model: AppModel;
-  protected view: MapView;
-
+export default class MapPresenter extends Presenter<AppModel, MapView> {
   public constructor(model: AppModel, view: MapView, emitter: EventEmitter) {
     super(model, view, emitter);
 

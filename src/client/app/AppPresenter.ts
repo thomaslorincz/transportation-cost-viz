@@ -5,8 +5,7 @@ import View from '../superclasses/View';
 import * as EventEmitter from 'eventemitter3';
 import AppModel from './AppModel';
 
-export default class AppPresenter extends Presenter {
-  protected model: AppModel;
+export default class AppPresenter extends Presenter<AppModel, View> {
   private readonly mapView: MapView;
 
   public constructor(model: AppModel, view: View, emitter: EventEmitter) {
