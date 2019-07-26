@@ -1,9 +1,9 @@
 import * as path from 'path';
 import * as express from 'express';
-import helmet from 'helmet';
-import webpack from 'webpack';
-import webpackDevMiddleware from 'webpack-dev-middleware';
-import webpackHotMiddleware from 'webpack-hot-middleware';
+import * as helmet from 'helmet';
+import * as webpack from 'webpack';
+import * as webpackDevMiddleware from 'webpack-dev-middleware';
+import * as webpackHotMiddleware from 'webpack-hot-middleware';
 import * as config from '../../webpack.dev.config.js';
 
 const app = express();
@@ -14,10 +14,10 @@ app.use(helmet());
 app.use(webpackDevMiddleware(compiler, {publicPath: config.output.publicPath}));
 app.use(webpackHotMiddleware(compiler));
 
-app.get('/', (req, res, next) => {
+app.get('/', (req, res, next): void => {
   compiler.outputFileSystem.readFile(
       path.join(__dirname, 'index.html'),
-      (err, result) => {
+      (err, result): void => {
         if (err) return next(err);
         res.set('content-type', 'text/html');
         res.send(result);
@@ -26,4 +26,4 @@ app.get('/', (req, res, next) => {
   );
 });
 
-app.listen(port, () => console.log(`Listening on port ${port}`));
+app.listen(port, (): void => console.log(`Listening on port ${port}`));
