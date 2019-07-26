@@ -28,7 +28,7 @@ npm test
 ### Deploy
 After finishing work on a feature:
 ```
-npm run buildProd
+npm run build-prod
 ```
 Then commit the changes made to the dist folder:
 ```
