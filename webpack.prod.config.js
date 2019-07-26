@@ -8,7 +8,7 @@ const CompressPlugin = require('compression-webpack-plugin');
 
 module.exports = {
   entry: {
-    main: './src/client/index.js',
+    main: './src/client/index.ts',
   },
   output: {
     path: path.join(__dirname, 'dist'),
@@ -53,7 +53,7 @@ module.exports = {
         loader: 'ts-loader',
         exclude: /node_modules/,
         options: {
-          configFile: './tsconfig.prod.json',
+          configFile: 'tsconfig.prod.json',
         },
       },
       {

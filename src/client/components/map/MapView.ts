@@ -1,13 +1,14 @@
-import mapboxgl from 'mapbox-gl';
+import * as mapboxgl from 'mapbox-gl';
 import View from '../../superclasses/View';
+import * as EventEmitter from 'eventemitter3';
 
-/** A component that draws the map-related displays. */
 export default class MapView extends View {
-  /**
-   * @param {HTMLElement} container
-   * @param {EventEmitter} emitter
-   */
-  constructor(container, emitter) {
+  private map: mapboxgl.Map;
+  private readonly costStyling: any[];
+  private readonly proportionStyling: any[];
+  private readonly labels: object;
+
+  public constructor(container: Element, emitter: EventEmitter) {
     super(container, emitter);
 
     mapboxgl.accessToken = 'pk.eyJ1IjoidGhvbWFzbG9yaW5jeiIsImEiOiJjamx5aXVwaH' +
@@ -63,7 +64,7 @@ export default class MapView extends View {
     };
 
 
-    this.map.on('load', () => {
+    this.map.on('load', (): void => {
       this.map.addLayer({
         'id': 'dataLayer',
         'source': {
@@ -87,18 +88,21 @@ export default class MapView extends View {
       this.emitter.emit('loaded');
     });
 
-    document.querySelectorAll('.property-entry').forEach((entry) => {
-      entry.addEventListener('click', (event) => {
-        this.emitter.emit('propertyClicked', event.target.dataset.value);
-      });
-    });
+    document.querySelectorAll('.property-entry')
+        .forEach((entry: Element): void => {
+          entry.addEventListener('click', (event: Event): void => {
+            if (event.target instanceof Element) {
+              this.emitter.emit(
+                  'propertyClicked',
+                  event.target.getAttribute('value')
+              );
+            }
+          });
+        });
   }
 
-  /**
-   * Redraw data on the map. Colour based on property.
-   * @param {string} property
-   */
-  draw(property) {
+  /** Redraw data on the map. Colour based on property. */
+  public draw(property: string): void {
     const oldSelected = document.querySelector('.selected');
     if (oldSelected) {
       oldSelected.classList.remove('selected');

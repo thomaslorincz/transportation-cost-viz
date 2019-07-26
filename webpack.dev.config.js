@@ -4,7 +4,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/client/index.js',
+  entry: './src/client/index.ts',
   output: {
     path: path.join(__dirname, 'dist'),
     publicPath: '/',
@@ -38,7 +38,7 @@ module.exports = {
         loader: 'ts-loader',
         exclude: /node_modules/,
         options: {
-          configFile: './tsconfig.dev.json',
+          configFile: 'tsconfig.dev.json',
         },
       },
       {

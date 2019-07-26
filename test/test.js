@@ -1,7 +1,7 @@
 import {describe, it} from 'mocha';
 import {expect} from 'chai';
 import EventEmitter from 'eventemitter3';
-import AppModel from '../src/client/app/App.model';
+import AppModel from '../src/client/app/AppModel';
 
 describe('AppModel', () => {
   describe('#initialDraw()', () => {
