@@ -57,8 +57,9 @@ body {
   display: flex;
   position: relative;
   flex-direction: row;
-  margin: 10px;
-  border-radius: 10px;
+  align-items: center;
+  max-width: 240px;
+  margin: 10px 0;
 }
 
 .entry-color {
@@ -68,6 +69,7 @@ body {
   height: 14px;
   border-radius: 50%;
   margin-right: 10px;
+  margin-left: 14px;
 }
 
 .yellow-color {
@@ -93,9 +95,16 @@ body {
   font-family: "Montserrat", sans-serif;
 }
 
-.property {
-  font-size: 16px;
+.scenario {
+  font-size: 14px;
   pointer-events: none;
+  margin-left: 10px;
+}
+
+.property {
+  font-size: 14px;
+  pointer-events: none;
+  margin-left: 10px;
 }
 
 .divider {
@@ -105,26 +114,26 @@ body {
   border-radius: 1px;
 }
 
-.property-entry {
+.selectable {
   cursor: pointer;
-  padding: 10px 20px;
-  border-radius: 18px;
+  padding: 10px;
+  border-radius: 22px;
   transition: background-color 250ms ease;
 }
 
-.property-entry:first-child {
+.selectable:first-child {
   margin-bottom: 2px;
 }
 
-.property-entry:last-child {
+.selectable:last-child {
   margin-top: 2px;
 }
 
-.property-entry:hover {
+.selectable:hover {
   background-color: gainsboro;
 }
 
-.property-entry.selected {
+.selectable.selected {
   background-color: gainsboro;
   border: 1px solid grey;
 }
