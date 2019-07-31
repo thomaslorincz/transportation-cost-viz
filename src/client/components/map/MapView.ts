@@ -31,18 +31,18 @@ export default class MapView extends View {
     this.styling = {
       cost: [
         'case',
-        ['>=', ['get', 'cost'], 12], '#213E9A',
-        ['>=', ['get', 'cost'], 9], '#9B1BBA',
-        ['>=', ['get', 'cost'], 6], '#DA102C',
-        ['>=', ['get', 'cost'], 0], '#F9E200',
+        ['>=', ['get', 'cost'], 12], '#2345B2',
+        ['>=', ['get', 'cost'], 9], '#BA1BBA',
+        ['>=', ['get', 'cost'], 6], '#FF4111',
+        ['>=', ['get', 'cost'], 0], '#FFCC00',
         '#000000',
       ],
       proportion: [
         'case',
-        ['>=', ['get', 'proportion'], 15], '#213E9A',
-        ['>=', ['get', 'proportion'], 10], '#9B1BBA',
-        ['>=', ['get', 'proportion'], 5], '#DA102C',
-        ['>=', ['get', 'proportion'], 0], '#F9E200',
+        ['>=', ['get', 'proportion'], 15], '#2345B2',
+        ['>=', ['get', 'proportion'], 10], '#BA1BBA',
+        ['>=', ['get', 'proportion'], 5], '#FF4111',
+        ['>=', ['get', 'proportion'], 0], '#FFCC00',
         '#000000',
       ],
     };

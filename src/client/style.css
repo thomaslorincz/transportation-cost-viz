@@ -73,19 +73,19 @@ body {
 }
 
 .yellow-color {
-  background-color: #F9E200;
+  background-color: #FFCC00;
 }
 
 .red-color {
-  background-color: #DA102C;
-}
-
-.magenta-color {
-  background-color: #9B1BBA;
+  background-color: #FF4111;
 }
 
 .purple-color {
-  background-color: #213E9A;
+  background-color: #BA1BBA;
+}
+
+.blue-color {
+  background-color: #2345B2;
 }
 
 .entry-label {
