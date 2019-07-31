@@ -4,9 +4,7 @@ import * as EventEmitter from 'eventemitter3';
 
 export default class MapView extends View {
   private map: mapboxgl.Map;
-  private readonly costStyling: any[];
-  private readonly proportionStyling: any[];
-  private readonly labels: object;
+  private readonly styling: object;
 
   public constructor(container: Element, emitter: EventEmitter) {
     super(container, emitter);
@@ -30,103 +28,86 @@ export default class MapView extends View {
       customAttribution: attribution,
     }));
 
-    this.costStyling = [
-      'case',
-      ['>', ['get', 'cost'], 14313], '#213E9A',
-      ['>', ['get', 'cost'], 9759], '#9B1BBA',
-      ['>', ['get', 'cost'], 5741], '#DA102C',
-      ['>=', ['get', 'cost'], 0], '#F9E200',
-      '#000000',
-    ];
-
-    this.proportionStyling = [
-      'case',
-      ['>', ['get', 'proportion'], 17], '#213E9A',
-      ['>', ['get', 'proportion'], 10], '#9B1BBA',
-      ['>', ['get', 'proportion'], 6], '#DA102C',
-      ['>=', ['get', 'proportion'], 0], '#F9E200',
-      '#000000',
-    ];
-
-    this.labels = {
+    this.styling = {
       cost: [
-        '$0 - $5741 (1st Quartile)',
-        '$5742 - $9759 (2nd Quartile)',
-        '$9760 - $14313 (3rd Quartile)',
-        '$14314+ (4th Quartile)',
+        'case',
+        ['>=', ['get', 'cost'], 12], '#213E9A',
+        ['>=', ['get', 'cost'], 9], '#9B1BBA',
+        ['>=', ['get', 'cost'], 6], '#DA102C',
+        ['>=', ['get', 'cost'], 0], '#F9E200',
+        '#000000',
       ],
       proportion: [
-        '0% - 6% (1st Quartile)',
-        '7% - 10% (2nd Quartile)',
-        '11% - 17% (3rd Quartile)',
-        '18%+ (4th Quartile)',
+        'case',
+        ['>=', ['get', 'proportion'], 15], '#213E9A',
+        ['>=', ['get', 'proportion'], 10], '#9B1BBA',
+        ['>=', ['get', 'proportion'], 5], '#DA102C',
+        ['>=', ['get', 'proportion'], 0], '#F9E200',
+        '#000000',
       ],
     };
 
+    const layerStyling = {
+      'type': 'circle',
+      'paint': {
+        'circle-color': this.styling['cost'],
+        'circle-radius': [
+          'interpolate', ['linear'], ['zoom'],
+          0, 1,
+          11, 1,
+          13, 2,
+          22, 2,
+        ],
+      },
+    };
 
     this.map.on('load', (): void => {
       this.map.addLayer({
-        'id': 'dataLayer',
+        'id': 'now-layer',
         'source': {
           type: 'vector',
-          url: 'mapbox://thomaslorincz.87xvl8hq',
+          url: 'mapbox://thomaslorincz.8gxm2azy',
         },
-        'source-layer': 'transport_costs_v3',
-        'type': 'circle',
-        'paint': {
-          'circle-color': this.costStyling,
-          'circle-radius': [
-            'interpolate', ['linear'], ['zoom'],
-            0, 1,
-            11, 1,
-            13, 2,
-            22, 2,
-          ],
+        'source-layer': 'output_now-4zfpzz',
+        ...layerStyling,
+      });
+
+      this.map.addLayer({
+        'id': 'bau-layer',
+        'source': {
+          type: 'vector',
+          url: 'mapbox://thomaslorincz.80dvwacw',
         },
+        'source-layer': 'output_bau-2z8aqv',
+        ...layerStyling,
+      });
+
+      this.map.addLayer({
+        'id': 'preferred-layer',
+        'source': {
+          type: 'vector',
+          url: 'mapbox://thomaslorincz.155zvvkh',
+        },
+        'source-layer': 'output_preferred-2ll722',
+        ...layerStyling,
       });
 
       this.emitter.emit('loaded');
     });
-
-    document.querySelectorAll('.property-entry')
-        .forEach((entry: Element): void => {
-          entry.addEventListener('click', (event: Event): void => {
-            if (event.target instanceof Element) {
-              this.emitter.emit(
-                  'propertyClicked',
-                  event.target.getAttribute('value')
-              );
-            }
-          });
-        });
   }
 
-  /** Redraw data on the map. Colour based on property. */
-  public draw(property: string): void {
-    const oldSelected = document.querySelector('.selected');
-    if (oldSelected) {
-      oldSelected.classList.remove('selected');
-    }
-    document.getElementById(`${property}-entry`).classList.add('selected');
+  /** Redraw data on the map. Colour based on selections. */
+  public draw(scenario: string, property: string): void {
+    this.map.setPaintProperty(
+        `${scenario}-layer`,
+        'circle-color',
+        this.styling[property]
+    );
 
-    if (property === 'cost') {
-      this.map.setPaintProperty(
-          'dataLayer',
-          'circle-color',
-          this.costStyling
-      );
-    } else if (property === 'proportion') {
-      this.map.setPaintProperty(
-          'dataLayer',
-          'circle-color',
-          this.proportionStyling
-      );
-    }
+    this.map.setLayoutProperty('now-layer', 'visibility', 'none');
+    this.map.setLayoutProperty('bau-layer', 'visibility', 'none');
+    this.map.setLayoutProperty('preferred-layer', 'visibility', 'none');
 
-    const labels = this.labels[property];
-    document.getElementById('first-quartile').innerText = labels[0];
-    document.getElementById('second-quartile').innerText = labels[1];
-    document.getElementById('third-quartile').innerText = labels[2];
-    document.getElementById('fourth-quartile').innerText = labels[3];
+    this.map.setLayoutProperty(`${scenario}-layer`, 'visibility', 'visible');
   }
 }

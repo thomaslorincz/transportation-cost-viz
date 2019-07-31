@@ -10,9 +10,5 @@ export default class MapPresenter extends Presenter<AppModel, MapView> {
     this.emitter.on('loaded', (): void => {
       this.model.initialDraw();
     });
-
-    this.emitter.on('propertyClicked', (property: string): void => {
-      this.model.updateProperty(property);
-    });
   }
 }
