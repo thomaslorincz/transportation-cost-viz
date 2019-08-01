@@ -60,6 +60,7 @@ body {
   box-sizing: border-box;
   width: 240px;
   margin: 2px 0;
+  padding: 4px 8px;
 }
 
 .legend-entry:first-child {
@@ -70,29 +71,20 @@ body {
   margin-bottom: 10px;
 }
 
-.entry-color {
-  display: inline-block;
-  position: relative;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  margin-left: 14px;
-}
-
 .yellow-color {
-  background-color: #FFCC00;
+  color: #FFCC00;
 }
 
 .red-color {
-  background-color: #FF4111;
+  color: #FF4111;
 }
 
 .purple-color {
-  background-color: #BA1BBA;
+  color: #BA1BBA;
 }
 
 .blue-color {
-  background-color: #2345B2;
+  color: #2345B2;
 }
 
 .entry-label {
@@ -115,7 +107,6 @@ body {
 
 .selectable {
   cursor: pointer;
-  padding: 4px 8px;
   border-radius: 22px;
   border: 1px solid white;
   transition: background-color 250ms ease, border 250ms ease;
