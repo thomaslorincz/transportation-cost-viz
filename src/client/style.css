@@ -39,7 +39,7 @@ body {
   border-radius: 20px;
   z-index: 1;
   background-color: white;
-  padding: 10px 20px 0 20px;
+  padding: 0 20px;
   margin: 12px;
 }
 
@@ -58,10 +58,10 @@ body {
   justify-content: center;
   align-content: center;
   font-family: "Montserrat", sans-serif;
-  font-size: 20px;
-  height: 24px;
-  line-height: 24px;
-  margin-bottom: 10px;
+  font-size: 18px;
+  height: 22px;
+  line-height: 22px;
+  margin: 6px 0;
   pointer-events: none;
 }
 
@@ -69,13 +69,14 @@ body {
   margin-left: 8px;
 }
 
-.legend-entries {
+.panel-entry-container {
   display: flex;
   position: relative;
   flex-direction: column;
+  margin: 6px 0;
 }
 
-.legend-entry {
+.panel-entry {
   display: flex;
   position: relative;
   flex-direction: row;
@@ -83,40 +84,15 @@ body {
   box-sizing: border-box;
   width: 240px;
   margin: 2px 0;
-  padding: 4px 8px;
+  padding: 2px 8px;
 }
 
-.legend-entry:first-child {
-  margin-top: 10px;
+.panel-entry:first-child {
+  margin-top: 0;
 }
 
-.legend-entry:last-child {
-  margin-bottom: 10px;
-}
-
-.yellow-color {
-  color: #FFCC00;
-}
-
-.red-color {
-  color: #FF4111;
-}
-
-.purple-color {
-  color: #BA1BBA;
-}
-
-.blue-color {
-  color: #2345B2;
-}
-
-.entry-label {
-  display: inline-block;
-  position: relative;
-  font-size: 14px;
-  font-family: "Montserrat", sans-serif;
-  pointer-events: none;
-  margin-left: 10px;
+.panel-entry:last-child {
+  margin-bottom: 0;
 }
 
 .divider {
@@ -126,6 +102,15 @@ body {
   height: 2px;
   background-color: gainsboro;
   border-radius: 1px;
+}
+
+.entry-label {
+  display: inline-block;
+  position: relative;
+  font-size: 14px;
+  font-family: "Montserrat", sans-serif;
+  pointer-events: none;
+  margin-left: 10px;
 }
 
 .selectable {
@@ -142,6 +127,22 @@ body {
 .selectable.selected {
   background-color: gainsboro;
   border: 1px solid grey;
+}
+
+.yellow-color {
+  color: #FFCC00;
+}
+
+.red-color {
+  color: #FF4111;
+}
+
+.purple-color {
+  color: #BA1BBA;
+}
+
+.blue-color {
+  color: #2345B2;
 }
 
 #info-button {
