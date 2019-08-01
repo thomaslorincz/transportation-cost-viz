@@ -21,20 +21,37 @@ body {
   z-index: 0;
 }
 
-#legend {
+#panels {
   display: flex;
   position: fixed;
   flex-direction: column;
+  width: auto;
   height: auto;
-  top: 20px;
-  right: 20px;
+  top: 0;
+  right: 0;
+}
+
+.panel {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  height: auto;
   border-radius: 20px;
   z-index: 1;
   background-color: white;
   padding: 10px 20px 0 20px;
+  margin: 20px;
 }
 
-#legend-title {
+.panel:first-child {
+  margin-bottom: 10px;
+}
+
+.panel:last-child {
+  margin-top: 10px;
+}
+
+.title {
   display: block;
   position: relative;
   text-align: center;

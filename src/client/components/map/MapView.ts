@@ -47,7 +47,7 @@ export default class MapView extends View {
       ],
     };
 
-    const layerStyling = {
+    const circlLayerStyling = {
       'type': 'circle',
       'paint': {
         'circle-color': this.styling['cost'],
@@ -69,7 +69,7 @@ export default class MapView extends View {
           url: 'mapbox://thomaslorincz.8gxm2azy',
         },
         'source-layer': 'output_now-4zfpzz',
-        ...layerStyling,
+        ...circlLayerStyling,
       });
 
       this.map.addLayer({
@@ -79,7 +79,7 @@ export default class MapView extends View {
           url: 'mapbox://thomaslorincz.80dvwacw',
         },
         'source-layer': 'output_bau-2z8aqv',
-        ...layerStyling,
+        ...circlLayerStyling,
       });
 
       this.map.addLayer({
@@ -89,7 +89,45 @@ export default class MapView extends View {
           url: 'mapbox://thomaslorincz.155zvvkh',
         },
         'source-layer': 'output_preferred-2ll722',
-        ...layerStyling,
+        ...circlLayerStyling,
+      });
+
+      const boundaryLayerStyling = {
+        'type': 'line',
+        'paint': {
+          'line-color': '#FFFFFF',
+          'line-width': 1,
+        },
+      };
+
+      this.map.addLayer({
+        'id': 'nc-layer',
+        'source': {
+          type: 'vector',
+          url: 'mapbox://thomaslorincz.d571qaco',
+        },
+        'source-layer': 'nc_CityII-axaip8',
+        ...boundaryLayerStyling,
+      });
+
+      this.map.addLayer({
+        'id': 'city-layer',
+        'source': {
+          type: 'vector',
+          url: 'mapbox://thomaslorincz.48okpw5t',
+        },
+        'source-layer': 'city_boundary-d6ewoz',
+        ...boundaryLayerStyling,
+      });
+
+      this.map.addLayer({
+        'id': 'cma-layer',
+        'source': {
+          type: 'vector',
+          url: 'mapbox://thomaslorincz.1kz18y39',
+        },
+        'source-layer': 'cma_boundary-5vtklc',
+        ...boundaryLayerStyling,
       });
 
       this.emitter.emit('loaded');
@@ -97,17 +135,25 @@ export default class MapView extends View {
   }
 
   /** Redraw data on the map. Colour based on selections. */
-  public draw(scenario: string, property: string): void {
+  public draw(scenario: string, property: string, overlay: string): void {
     this.map.setPaintProperty(
         `${scenario}-layer`,
         'circle-color',
         this.styling[property]
     );
 
+    // Set visibility for circle layers
     this.map.setLayoutProperty('now-layer', 'visibility', 'none');
     this.map.setLayoutProperty('bau-layer', 'visibility', 'none');
     this.map.setLayoutProperty('preferred-layer', 'visibility', 'none');
 
     this.map.setLayoutProperty(`${scenario}-layer`, 'visibility', 'visible');
+
+    // Set visibility for boundary layers
+    this.map.setLayoutProperty('nc-layer', 'visibility', 'none');
+    this.map.setLayoutProperty('city-layer', 'visibility', 'none');
+    this.map.setLayoutProperty('cma-layer', 'visibility', 'none');
+
+    this.map.setLayoutProperty(`${overlay}-layer`, 'visibility', 'visible');
   }
 }

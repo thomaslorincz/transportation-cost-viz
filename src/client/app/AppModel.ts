@@ -5,6 +5,7 @@ import * as EventEmitter from 'eventemitter3';
 export default class AppModel extends Model {
   private scenario: string = 'now';
   private property: string = 'cost';
+  private overlay: string = 'city';
 
   public constructor(emitter: EventEmitter) {
     super(emitter);
@@ -27,11 +28,18 @@ export default class AppModel extends Model {
     this.dispatchDisplayUpdate();
   }
 
+  /** Update the currently selected overlay. */
+  public updateOverlay(overlay: string): void {
+    this.overlay = overlay;
+    this.dispatchDisplayUpdate();
+  }
+
   /** Dispatch an updateDisplay event. */
   private dispatchDisplayUpdate(): void {
     this.emitter.emit('updateDisplay', {
       scenario: this.scenario,
       property: this.property,
+      overlay: this.overlay,
     });
   }
 }
