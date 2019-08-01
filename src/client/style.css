@@ -188,6 +188,33 @@ body {
   cursor: default;
 }
 
+#info-close-container {
+  display: flex;
+  position: relative;
+  flex-direction: row-reverse;
+}
+
+#info-close {
+  display: inline-flex;
+  position: relative;
+  width: 40px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: white;
+  transition: background-color 250ms ease;
+  cursor: pointer;
+}
+
+#info-close i {
+  font-size: 32px;
+}
+
+#info-close:hover {
+  background-color: gainsboro;
+}
+
 #info-page h1 {
   margin: 10px 0;
 }
