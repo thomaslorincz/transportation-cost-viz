@@ -3,9 +3,8 @@ html {
 }
 
 body {
-  display: flex;
+  display: block;
   position: fixed;
-  justify-content: center;
   width: 100%;
   height: 100%;
   margin: 0;
@@ -14,7 +13,7 @@ body {
 
 #map {
   display: block;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -24,7 +23,7 @@ body {
 
 #legend {
   display: flex;
-  position: absolute;
+  position: fixed;
   flex-direction: column;
   height: auto;
   top: 20px;
@@ -32,7 +31,7 @@ body {
   border-radius: 20px;
   z-index: 1;
   background-color: white;
-  padding: 10px 20px;
+  padding: 10px 20px 0 20px;
 }
 
 #legend-title {
@@ -60,7 +59,15 @@ body {
   align-items: center;
   box-sizing: border-box;
   width: 240px;
-  margin: 10px 0;
+  margin: 2px 0;
+}
+
+.legend-entry:first-child {
+  margin-top: 10px;
+}
+
+.legend-entry:last-child {
+  margin-bottom: 10px;
 }
 
 .entry-color {
@@ -69,7 +76,6 @@ body {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  margin-right: 10px;
   margin-left: 14px;
 }
 
@@ -94,21 +100,13 @@ body {
   position: relative;
   font-size: 14px;
   font-family: "Montserrat", sans-serif;
-}
-
-.scenario {
-  font-size: 14px;
-  pointer-events: none;
-  margin-left: 10px;
-}
-
-.property {
-  font-size: 14px;
   pointer-events: none;
   margin-left: 10px;
 }
 
 .divider {
+  display: block;
+  position: relative;
   width: 100%;
   height: 2px;
   background-color: gainsboro;
@@ -117,22 +115,14 @@ body {
 
 .selectable {
   cursor: pointer;
-  padding: 10px;
+  padding: 4px 8px;
   border-radius: 22px;
   border: 1px solid white;
   transition: background-color 250ms ease, border 250ms ease;
 }
 
-.selectable:first-child {
-  margin-bottom: 2px;
-}
-
-.selectable:last-child {
-  margin-top: 2px;
-}
-
 .selectable:hover {
-  background-color: gainsboro;
+  border: 1px solid grey;
 }
 
 .selectable.selected {
