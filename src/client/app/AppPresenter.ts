@@ -8,11 +8,14 @@ import LegendView from '../components/legend/LegendView';
 import LegendPresenter from '../components/legend/LegendPresenter';
 import OverlayView from '../components/overlay/OverlayView';
 import OverlayPresenter from '../components/overlay/OverlayPresenter';
+import InfoView from '../components/info/InfoView';
+import InfoPresenter from '../components/info/InfoPresenter';
 
 export default class AppPresenter extends Presenter<AppModel, View> {
   private readonly mapView: MapView;
   private readonly legendView: LegendView;
   private readonly overlayView: OverlayView;
+  private readonly infoView: InfoView;
 
   public constructor(model: AppModel, view: View, emitter: EventEmitter) {
     super(model, view, emitter);
@@ -32,10 +35,20 @@ export default class AppPresenter extends Presenter<AppModel, View> {
     );
     new OverlayPresenter(this.model, this.overlayView, this.emitter);
 
-    this.emitter.on('updateDisplay', ({scenario, property, overlay}): void => {
-      this.mapView.draw(scenario, property, overlay);
-      this.legendView.draw(scenario, property);
-      this.overlayView.draw(overlay);
-    });
+    this.infoView = new InfoView(
+        document.getElementById('info-button'),
+        this.emitter
+    );
+    new InfoPresenter(this.model, this.infoView, this.emitter);
+
+    this.emitter.on(
+        'updateDisplay',
+        ({scenario, property, overlay, infoVisible}): void => {
+          this.mapView.draw(scenario, property, overlay);
+          this.legendView.draw(scenario, property);
+          this.overlayView.draw(overlay);
+          this.infoView.draw(infoVisible);
+        }
+    );
   }
 }

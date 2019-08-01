@@ -6,6 +6,7 @@ export default class AppModel extends Model {
   private scenario: string = 'now';
   private property: string = 'cost';
   private overlay: string = 'city';
+  private infoVisible: boolean = false;
 
   public constructor(emitter: EventEmitter) {
     super(emitter);
@@ -34,12 +35,19 @@ export default class AppModel extends Model {
     this.dispatchDisplayUpdate();
   }
 
+  /** Update the visible state of the info window. */
+  public updateInfoVisibility(state: boolean): void {
+    this.infoVisible = state;
+    this.dispatchDisplayUpdate();
+  }
+
   /** Dispatch an updateDisplay event. */
   private dispatchDisplayUpdate(): void {
     this.emitter.emit('updateDisplay', {
       scenario: this.scenario,
       property: this.property,
       overlay: this.overlay,
+      infoVisible: this.infoVisible,
     });
   }
 }
