@@ -47,7 +47,7 @@ export default class MapView extends View {
       ],
     };
 
-    const circlLayerStyling = {
+    const circleLayerStyling = {
       'type': 'circle',
       'paint': {
         'circle-color': this.styling['cost'],
@@ -58,6 +58,10 @@ export default class MapView extends View {
           13, 2,
           22, 2,
         ],
+        'circle-opacity-transition': {
+          'duration': 500,
+          'delay': 0,
+        },
       },
     };
 
@@ -69,7 +73,7 @@ export default class MapView extends View {
           url: 'mapbox://thomaslorincz.8gxm2azy',
         },
         'source-layer': 'output_now-4zfpzz',
-        ...circlLayerStyling,
+        ...circleLayerStyling,
       });
 
       this.map.addLayer({
@@ -79,7 +83,7 @@ export default class MapView extends View {
           url: 'mapbox://thomaslorincz.80dvwacw',
         },
         'source-layer': 'output_bau-2z8aqv',
-        ...circlLayerStyling,
+        ...circleLayerStyling,
       });
 
       this.map.addLayer({
@@ -89,7 +93,7 @@ export default class MapView extends View {
           url: 'mapbox://thomaslorincz.155zvvkh',
         },
         'source-layer': 'output_preferred-2ll722',
-        ...circlLayerStyling,
+        ...circleLayerStyling,
       });
 
       const boundaryLayerStyling = {
@@ -97,6 +101,10 @@ export default class MapView extends View {
         'paint': {
           'line-color': '#FFFFFF',
           'line-width': 1,
+          'line-opacity-transition': {
+            'duration': 500,
+            'delay': 0,
+          },
         },
       };
 
@@ -143,17 +151,17 @@ export default class MapView extends View {
     );
 
     // Set visibility for circle layers
-    this.map.setLayoutProperty('now-layer', 'visibility', 'none');
-    this.map.setLayoutProperty('bau-layer', 'visibility', 'none');
-    this.map.setLayoutProperty('preferred-layer', 'visibility', 'none');
+    this.map.setPaintProperty('now-layer', 'circle-opacity', 0);
+    this.map.setPaintProperty('bau-layer', 'circle-opacity', 0);
+    this.map.setPaintProperty('preferred-layer', 'circle-opacity', 0);
 
-    this.map.setLayoutProperty(`${scenario}-layer`, 'visibility', 'visible');
+    this.map.setPaintProperty(`${scenario}-layer`, 'circle-opacity', 1);
 
     // Set visibility for boundary layers
-    this.map.setLayoutProperty('nc-layer', 'visibility', 'none');
-    this.map.setLayoutProperty('city-layer', 'visibility', 'none');
-    this.map.setLayoutProperty('cma-layer', 'visibility', 'none');
+    this.map.setPaintProperty('nc-layer', 'line-opacity', 0);
+    this.map.setPaintProperty('city-layer', 'line-opacity', 0);
+    this.map.setPaintProperty('cma-layer', 'line-opacity', 0);
 
-    this.map.setLayoutProperty(`${overlay}-layer`, 'visibility', 'visible');
+    this.map.setPaintProperty(`${overlay}-layer`, 'line-opacity', 1);
   }
 }
