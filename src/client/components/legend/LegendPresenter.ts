@@ -18,5 +18,9 @@ export default class LegendPresenter extends Presenter<AppModel, LegendView> {
     this.emitter.on('propertyClicked', (property: string): void => {
       this.model.updateProperty(property);
     });
+
+    this.emitter.on('invertClicked', (): void => {
+      this.model.toggleColourInversion();
+    });
   }
 }
