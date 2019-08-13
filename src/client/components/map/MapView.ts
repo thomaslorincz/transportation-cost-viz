@@ -5,6 +5,7 @@ import * as EventEmitter from 'eventemitter3';
 export default class MapView extends View {
   private map: mapboxgl.Map;
   private readonly styling: object;
+  private readonly invertedStyling: object;
 
   public constructor(container: Element, emitter: EventEmitter) {
     super(container, emitter);
@@ -43,6 +44,25 @@ export default class MapView extends View {
         ['>=', ['get', 'proportion'], 10], '#BA1BBA',
         ['>=', ['get', 'proportion'], 5], '#FF4111',
         ['>=', ['get', 'proportion'], 0], '#FFCC00',
+        '#000000',
+      ],
+    };
+
+    this.invertedStyling = {
+      cost: [
+        'case',
+        ['>=', ['get', 'cost'], 12], '#FFCC00',
+        ['>=', ['get', 'cost'], 9], '#FF4111',
+        ['>=', ['get', 'cost'], 6], '#BA1BBA',
+        ['>=', ['get', 'cost'], 0], '#2345B2',
+        '#000000',
+      ],
+      proportion: [
+        'case',
+        ['>=', ['get', 'proportion'], 15], '#FFCC00',
+        ['>=', ['get', 'proportion'], 10], '#FF4111',
+        ['>=', ['get', 'proportion'], 5], '#BA1BBA',
+        ['>=', ['get', 'proportion'], 0], '#2345B2',
         '#000000',
       ],
     };
@@ -143,11 +163,12 @@ export default class MapView extends View {
   }
 
   /** Redraw data on the map. Colour based on selections. */
-  public draw(scenario: string, property: string, overlay: string): void {
+  public draw(scenario: string, property: string, overlay: string,
+      inverted: boolean): void {
     this.map.setPaintProperty(
         `${scenario}-layer`,
         'circle-color',
-        this.styling[property]
+        (inverted) ? this.invertedStyling[property] : this.styling[property]
     );
 
     // Set visibility for circle layers

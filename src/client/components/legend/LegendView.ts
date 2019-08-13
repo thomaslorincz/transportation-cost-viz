@@ -44,10 +44,16 @@ export default class LegendView extends View {
             }
           });
         });
+
+    document.getElementById('invert-colours')
+        .addEventListener('click', (): void => {
+          this.emitter.emit('invertClicked');
+        });
   }
 
   /** Redraw the legend according to what is selected. */
-  public draw(scenario: string, property: string, animating: boolean): void {
+  public draw(scenario: string, property: string, animating: boolean,
+      inverted: boolean): void {
     const lastSelected = this.container.querySelectorAll('.selected');
     lastSelected.forEach((element: HTMLElement): void => {
       element.classList.remove('selected');
@@ -64,5 +70,17 @@ export default class LegendView extends View {
     document.getElementById('second-bin').innerText = labels[1];
     document.getElementById('third-bin').innerText = labels[2];
     document.getElementById('fourth-bin').innerText = labels[3];
+
+    if (inverted) {
+      document.querySelectorAll('.coloured')
+          .forEach((element: HTMLElement): void => {
+            element.classList.add('inverted');
+          });
+    } else {
+      document.querySelectorAll('.coloured')
+          .forEach((element: HTMLElement): void => {
+            element.classList.remove('inverted');
+          });
+    }
   }
 }
