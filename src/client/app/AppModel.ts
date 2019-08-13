@@ -10,6 +10,7 @@ export default class AppModel extends Model {
   private scenarioSequence: Map<string, string> = new Map<string, string>();
   private animating: boolean = false;
   private animationInterval: number = undefined;
+  private coloursInverted: boolean = false;
 
   public constructor(emitter: EventEmitter) {
     super(emitter);
@@ -48,6 +49,11 @@ export default class AppModel extends Model {
     this.dispatchDisplayUpdate();
   }
 
+  public toggleColourInversion(): void {
+    this.coloursInverted = !this.coloursInverted;
+    this.dispatchDisplayUpdate();
+  }
+
   /** Update the currently selected overlay. */
   public updateOverlay(overlay: string): void {
     this.overlay = overlay;
@@ -68,6 +74,7 @@ export default class AppModel extends Model {
       overlay: this.overlay,
       infoVisible: this.infoVisible,
       animating: this.animating,
+      inverted: this.coloursInverted,
     });
   }
 }
