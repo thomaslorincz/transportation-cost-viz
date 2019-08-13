@@ -166,7 +166,17 @@ export default class MapView extends View {
   public draw(scenario: string, property: string, overlay: string,
       inverted: boolean): void {
     this.map.setPaintProperty(
-        `${scenario}-layer`,
+        'now-layer',
+        'circle-color',
+        (inverted) ? this.invertedStyling[property] : this.styling[property]
+    );
+    this.map.setPaintProperty(
+        'bau-layer',
+        'circle-color',
+        (inverted) ? this.invertedStyling[property] : this.styling[property]
+    );
+    this.map.setPaintProperty(
+        'preferred-layer',
         'circle-color',
         (inverted) ? this.invertedStyling[property] : this.styling[property]
     );
