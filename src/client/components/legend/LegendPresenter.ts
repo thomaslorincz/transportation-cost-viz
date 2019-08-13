@@ -11,6 +11,10 @@ export default class LegendPresenter extends Presenter<AppModel, LegendView> {
       this.model.updateScenario(scenario);
     });
 
+    this.emitter.on('animateClicked', (): void => {
+      this.model.toggleAnimation();
+    });
+
     this.emitter.on('propertyClicked', (property: string): void => {
       this.model.updateProperty(property);
     });
