@@ -42,15 +42,17 @@ body {
   z-index: 1;
   background-color: white;
   padding: 0 20px;
-  margin: 12px;
+  margin: 8px 16px;
 }
 
 .panel:first-child {
-  margin-bottom: 6px;
+  margin-top: 16px;
+  margin-bottom: 8px;
 }
 
 .panel:last-child {
-  margin-top: 6px;
+  margin-top: 8px;
+  margin-bottom: 16px;
 }
 
 .title {
