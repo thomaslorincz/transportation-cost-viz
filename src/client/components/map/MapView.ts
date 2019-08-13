@@ -25,9 +25,10 @@ export default class MapView extends View {
       attributionControl: false,
       dragRotate: false,
       pitchWithRotate: false,
-    }).addControl(new mapboxgl.AttributionControl({
-      customAttribution: attribution,
-    }));
+    }).addControl(
+        new mapboxgl.AttributionControl({customAttribution: attribution}),
+        'top-left'
+    );
 
     this.styling = {
       cost: [
