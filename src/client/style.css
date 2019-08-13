@@ -130,21 +130,19 @@ body {
   border: 1px solid grey;
 }
 
-.yellow-color {
-  color: #FFCC00;
-}
+.coloured {transition: color 500ms ease;}
 
-.red-color {
-  color: #FF4111;
-}
+.yellow-colour {color: #FFCC00;}
+.yellow-colour.inverted {color: #2345B2;}
 
-.purple-color {
-  color: #BA1BBA;
-}
+.red-colour {color: #FF4111;}
+.red-colour.inverted {color: #BA1BBA;}
 
-.blue-color {
-  color: #2345B2;
-}
+.purple-colour {color: #BA1BBA;}
+.purple-colour.inverted {color: #FF4111;}
+
+.blue-colour {color: #2345B2;}
+.blue-colour.inverted {color: #FFCC00;}
 
 #info-button {
   cursor: pointer;
