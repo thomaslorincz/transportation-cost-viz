@@ -26,9 +26,10 @@ body {
   position: fixed;
   flex-direction: column;
   width: auto;
-  height: auto;
+  height: 100%;
   top: 0;
   right: 0;
+  overflow: auto;
 }
 
 .panel {
