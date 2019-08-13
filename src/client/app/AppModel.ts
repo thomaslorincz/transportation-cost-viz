@@ -7,9 +7,15 @@ export default class AppModel extends Model {
   private property: string = 'cost';
   private overlay: string = 'city';
   private infoVisible: boolean = false;
+  private scenarioSequence: Map<string, string> = new Map<string, string>();
+  private animating: boolean = false;
+  private animationInterval: number = undefined;
 
   public constructor(emitter: EventEmitter) {
     super(emitter);
+    this.scenarioSequence.set('now', 'bau');
+    this.scenarioSequence.set('bau', 'preferred');
+    this.scenarioSequence.set('preferred', 'now');
   }
 
   /** A method for dispatching the initial draw event of the app. */
@@ -20,6 +26,19 @@ export default class AppModel extends Model {
   /** Update the currently selected scenario. */
   public updateScenario(scenario: string): void {
     this.scenario = scenario;
+    this.dispatchDisplayUpdate();
+  }
+
+  public toggleAnimation(): void {
+    if (this.animating) {
+      this.animating = false;
+      window.clearInterval(this.animationInterval);
+    } else {
+      this.animating = true;
+      this.animationInterval = window.setInterval((): void => {
+        this.updateScenario(this.scenarioSequence.get(this.scenario));
+      }, 1000);
+    }
     this.dispatchDisplayUpdate();
   }
 
@@ -48,6 +67,7 @@ export default class AppModel extends Model {
       property: this.property,
       overlay: this.overlay,
       infoVisible: this.infoVisible,
+      animating: this.animating,
     });
   }
 }

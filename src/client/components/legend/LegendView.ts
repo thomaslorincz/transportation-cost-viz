@@ -31,6 +31,11 @@ export default class LegendView extends View {
           });
         });
 
+    document.getElementById('scenario-animate')
+        .addEventListener('click', (): void => {
+          this.emitter.emit('animateClicked');
+        });
+
     this.container.querySelectorAll('.property-entry')
         .forEach((entry: HTMLElement): void => {
           entry.addEventListener('click', (event: Event): void => {
@@ -42,7 +47,7 @@ export default class LegendView extends View {
   }
 
   /** Redraw the legend according to what is selected. */
-  public draw(scenario: string, property: string): void {
+  public draw(scenario: string, property: string, animating: boolean): void {
     const lastSelected = this.container.querySelectorAll('.selected');
     lastSelected.forEach((element: HTMLElement): void => {
       element.classList.remove('selected');
@@ -50,6 +55,9 @@ export default class LegendView extends View {
 
     document.getElementById(`${scenario}-entry`).classList.add('selected');
     document.getElementById(`${property}-entry`).classList.add('selected');
+    if (animating) {
+      document.getElementById('scenario-animate').classList.add('selected');
+    }
 
     const labels = this.labels[property];
     document.getElementById('first-bin').innerText = labels[0];
