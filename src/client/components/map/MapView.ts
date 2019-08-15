@@ -90,9 +90,9 @@ export default class MapView extends View {
         'id': 'now-layer',
         'source': {
           type: 'vector',
-          url: 'mapbox://thomaslorincz.8gxm2azy',
+          url: 'mapbox://thomaslorincz.10tdxiox',
         },
-        'source-layer': 'output_now-4zfpzz',
+        'source-layer': 'output_now_v12_lontlat-ax6t28',
         ...circleLayerStyling,
       });
 
