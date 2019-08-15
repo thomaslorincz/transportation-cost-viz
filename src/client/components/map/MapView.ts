@@ -148,16 +148,6 @@ export default class MapView extends View {
         ...boundaryLayerStyling,
       });
 
-      this.map.addLayer({
-        'id': 'cma-layer',
-        'source': {
-          type: 'vector',
-          url: 'mapbox://thomaslorincz.1kz18y39',
-        },
-        'source-layer': 'cma_boundary-5vtklc',
-        ...boundaryLayerStyling,
-      });
-
       this.emitter.emit('loaded');
     });
   }
@@ -191,7 +181,6 @@ export default class MapView extends View {
     // Set visibility for boundary layers
     this.map.setPaintProperty('nc-layer', 'line-opacity', 0);
     this.map.setPaintProperty('city-layer', 'line-opacity', 0);
-    this.map.setPaintProperty('cma-layer', 'line-opacity', 0);
 
     this.map.setPaintProperty(`${overlay}-layer`, 'line-opacity', 1);
   }
