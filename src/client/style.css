@@ -148,6 +148,42 @@ body {
 .blue-colour {color: #2345B2;}
 .blue-colour.inverted {color: #FFCC00;}
 
+.chart-container {
+  display: flex;
+  position: relative;
+  width: 240px;
+  height: 240px;
+  padding: 0 10px;
+  justify-self: center;
+}
+
+.chart-button-container {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  margin: 6px 0;
+}
+
+.chart-button {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+  width: 120px;
+  margin: 2px 4px;
+  padding: 2px 8px;
+}
+
+.chart-button-label {
+  display: inline-block;
+  position: relative;
+  font-size: 14px;
+  font-family: "Montserrat", sans-serif;
+  pointer-events: none;
+  padding: 3px;
+}
+
 #info-button {
   cursor: pointer;
   transition: background-color 250ms ease;
