@@ -2,8 +2,8 @@
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint"],
   "extends": [
-    "plugin:@typescript-eslint/recommended",
-    "google"
+    "google",
+    "plugin:@typescript-eslint/recommended"
   ],
   "rules": {
     "space-infix-ops": "error",
@@ -36,8 +36,7 @@
           "ConditionalExpression"
         ]
       }
-    ],
-    "@typescript-eslint/no-explicit-any": "off"
+    ]
   },
   "parserOptions": {
     "ecmaVersion": 2018,
