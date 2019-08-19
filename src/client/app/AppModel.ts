@@ -38,7 +38,7 @@ export default class AppModel extends Model {
       this.animating = true;
       this.animationInterval = window.setInterval((): void => {
         this.updateScenario(this.scenarioSequence.get(this.scenario));
-      }, 1000);
+      }, 2000);
     }
     this.dispatchDisplayUpdate();
   }
