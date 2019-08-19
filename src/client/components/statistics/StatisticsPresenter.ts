@@ -8,5 +8,13 @@ export default class StatisticsPresenter
   public constructor(model: AppModel, view: StatisticsView,
       emitter: EventEmitter) {
     super(model, view, emitter);
+
+    this.emitter.on('histogramClicked', (): void => {
+      this.model.updateChart('histogram');
+    });
+
+    this.emitter.on('pieChartClicked', (): void => {
+      this.model.updateChart('pie-chart');
+    });
   }
 }

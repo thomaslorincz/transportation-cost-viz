@@ -53,11 +53,12 @@ export default class AppPresenter extends Presenter<AppModel, View> {
     this.emitter.on(
         'updateDisplay',
         ({scenario, property, overlay, infoVisible, animating,
-          inverted}): void => {
+          inverted, statistics}): void => {
           this.mapView.draw(scenario, property, overlay, inverted);
           this.legendView.draw(scenario, property, animating, inverted);
           this.overlayView.draw(overlay);
           this.infoView.draw(infoVisible);
+          this.statisticsView.draw(statistics, inverted);
         }
     );
   }

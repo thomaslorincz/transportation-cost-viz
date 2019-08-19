@@ -1,5 +1,7 @@
 import Model from '../superclasses/Model';
 import * as EventEmitter from 'eventemitter3';
+import * as d3 from 'd3';
+import StatisticsDatum from '../lib/StatisticsDatum';
 
 /** Model that stores and controls the app's data and state. */
 export default class AppModel extends Model {
@@ -9,14 +11,66 @@ export default class AppModel extends Model {
   private infoVisible: boolean = false;
   private scenarioSequence: Map<string, string> = new Map<string, string>();
   private animating: boolean = false;
+  private statistics: StatisticsDatum[] = [];
+
   private animationInterval: number = undefined;
   private coloursInverted: boolean = false;
+  private chart: string = 'pie-chart';
+  private ranges: Map<string, [number[], number[], number[], number[]]>;
+
+  private readonly data: Map<string, {cost: number; proportion: number}[]>;
 
   public constructor(emitter: EventEmitter) {
     super(emitter);
     this.scenarioSequence.set('now', 'bau');
     this.scenarioSequence.set('bau', 'preferred');
     this.scenarioSequence.set('preferred', 'now');
+
+    this.ranges = new Map<string, [number[], number[], number[], number[]]>();
+    this.ranges.set('cost', [
+      [0, 499],
+      [500, 749],
+      [750, 1000],
+      [1000, Number.MAX_SAFE_INTEGER],
+    ]);
+    this.ranges.set('proportion', [
+      [0, 4],
+      [5, 9],
+      [10, 14],
+      [15, Number.MAX_SAFE_INTEGER],
+    ]);
+
+    this.data = new Map<string, {cost: number; proportion: number}[]>();
+    this.data.set('now', []);
+    this.data.set('bau', []);
+    this.data.set('preferred', []);
+
+    Promise.all([
+      d3.csv('assets/data/output_now_v17.csv'),
+      d3.csv('assets/data/output_bau_v17.csv'),
+      d3.csv('assets/data/output_preferred_v17.csv'),
+    ]).then(([nowData, bauData, preferredData]): void => {
+      for (let i = 0; i < nowData.length; i++) {
+        this.data.get('now').push({
+          cost: Math.round((parseInt(nowData[i]['cost']) * 1000) / 12),
+          proportion: parseInt(nowData[i]['proportion']),
+        });
+      }
+
+      for (let i = 0; i < bauData.length; i++) {
+        this.data.get('bau').push({
+          cost: Math.round((parseInt(bauData[i]['cost']) * 1000) / 12),
+          proportion: parseInt(bauData[i]['proportion']),
+        });
+      }
+
+      for (let i = 0; i < preferredData.length; i++) {
+        this.data.get('preferred').push({
+          cost: Math.round((parseInt(preferredData[i]['cost']) * 1000) / 12),
+          proportion: parseInt(preferredData[i]['proportion']),
+        });
+      }
+    });
   }
 
   /** A method for dispatching the initial draw event of the app. */
@@ -66,8 +120,51 @@ export default class AppModel extends Model {
     this.dispatchDisplayUpdate();
   }
 
+  public updateChart(chart: string): void {
+    this.chart = chart;
+    this.dispatchDisplayUpdate();
+  }
+
+  public updateStatistics(): void {
+    const data = this.data.get(this.scenario);
+    const ranges = this.ranges.get(this.property);
+
+    const counts = [0, 0, 0, 0];
+
+    const statistics: StatisticsDatum[] = [
+      new StatisticsDatum(0, '', 0),
+      new StatisticsDatum(1, '', 0),
+      new StatisticsDatum(2, '', 0),
+      new StatisticsDatum(3, '', 0),
+    ];
+
+    for (let i = 0; i < data.length; i++) {
+      if (ranges[0][0] <= data[i][this.property]
+          && data[i][this.property] <= ranges[0][1]) {
+        counts[0]++;
+      } else if (ranges[1][0] <= data[i][this.property]
+          && data[i][this.property] <= ranges[1][1]) {
+        counts[1]++;
+      } else if (ranges[2][0] <= data[i][this.property]
+          && data[i][this.property] <= ranges[2][1]) {
+        counts[2]++;
+      } else if (ranges[3][0] <= data[i][this.property]
+          && data[i][this.property] <= ranges[3][1]) {
+        counts[3]++;
+      }
+    }
+
+    for (let i = 0; i < counts.length; i++) {
+      statistics[i].value = Math.round((counts[i] / data.length) * 100);
+      statistics[i].label = `${statistics[i].value}%`;
+    }
+
+    this.statistics = statistics;
+  }
+
   /** Dispatch an updateDisplay event. */
   private dispatchDisplayUpdate(): void {
+    this.updateStatistics();
     this.emitter.emit('updateDisplay', {
       scenario: this.scenario,
       property: this.property,
@@ -75,6 +172,7 @@ export default class AppModel extends Model {
       infoVisible: this.infoVisible,
       animating: this.animating,
       inverted: this.coloursInverted,
+      statistics: this.statistics,
     });
   }
 }
