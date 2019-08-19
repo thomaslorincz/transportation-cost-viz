@@ -25,6 +25,7 @@ export default class MapView extends View {
       attributionControl: false,
       dragRotate: false,
       pitchWithRotate: false,
+      minZoom: 8,
     }).addControl(
         new mapboxgl.AttributionControl({customAttribution: attribution}),
         'top-left'
@@ -80,7 +81,7 @@ export default class MapView extends View {
           22, 2,
         ],
         'circle-opacity-transition': {
-          'duration': 500,
+          'duration': 1000,
           'delay': 0,
         },
       },
@@ -91,9 +92,9 @@ export default class MapView extends View {
         'id': 'now-layer',
         'source': {
           type: 'vector',
-          url: 'mapbox://thomaslorincz.8gxm2azy',
+          url: 'mapbox://thomaslorincz.4wzkqtyd',
         },
-        'source-layer': 'output_now-4zfpzz',
+        'source-layer': 'output_now_v17-dzfkd2',
         ...circleLayerStyling,
       });
 
@@ -101,9 +102,9 @@ export default class MapView extends View {
         'id': 'bau-layer',
         'source': {
           type: 'vector',
-          url: 'mapbox://thomaslorincz.80dvwacw',
+          url: 'mapbox://thomaslorincz.416sq4pj',
         },
-        'source-layer': 'output_bau-2z8aqv',
+        'source-layer': 'output_bau_v17-d6o0lt',
         ...circleLayerStyling,
       });
 
@@ -111,9 +112,9 @@ export default class MapView extends View {
         'id': 'preferred-layer',
         'source': {
           type: 'vector',
-          url: 'mapbox://thomaslorincz.155zvvkh',
+          url: 'mapbox://thomaslorincz.4qhi3in5',
         },
-        'source-layer': 'output_preferred-2ll722',
+        'source-layer': 'output_preferred_v17-1mmrtt',
         ...circleLayerStyling,
       });
 
@@ -166,21 +167,12 @@ export default class MapView extends View {
   /** Redraw data on the map. Colour based on selections. */
   public draw(scenario: string, property: string, overlay: string,
       inverted: boolean): void {
-    this.map.setPaintProperty(
-        'now-layer',
-        'circle-color',
-        (inverted) ? this.invertedStyling[property] : this.styling[property]
-    );
-    this.map.setPaintProperty(
-        'bau-layer',
-        'circle-color',
-        (inverted) ? this.invertedStyling[property] : this.styling[property]
-    );
-    this.map.setPaintProperty(
-        'preferred-layer',
-        'circle-color',
-        (inverted) ? this.invertedStyling[property] : this.styling[property]
-    );
+    const styling = (inverted)
+        ? this.invertedStyling[property]
+        : this.styling[property];
+    this.map.setPaintProperty('now-layer', 'circle-color', styling);
+    this.map.setPaintProperty('bau-layer', 'circle-color', styling);
+    this.map.setPaintProperty('preferred-layer', 'circle-color', styling);
 
     // Set visibility for circle layers
     this.map.setPaintProperty('now-layer', 'circle-opacity', 0);
