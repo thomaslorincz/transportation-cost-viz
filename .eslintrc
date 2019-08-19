@@ -36,7 +36,8 @@
           "ConditionalExpression"
         ]
       }
-    ]
+    ],
+    "@typescript-eslint/no-explicit-any": "off"
   },
   "parserOptions": {
     "ecmaVersion": 2018,
