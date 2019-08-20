@@ -18,7 +18,7 @@ export default class AppModel extends Model {
 
   private animationInterval: number = undefined;
   private coloursInverted: boolean = false;
-  private ranges: Map<string, [number[], number[], number[], number[]]>;
+  private ranges: Map<string, Array<[number, number]>>;
 
   private readonly data: Map<string, {cost: number; proportion: number}[]>;
 
@@ -28,7 +28,7 @@ export default class AppModel extends Model {
     this.scenarioSequence.set('bau', 'preferred');
     this.scenarioSequence.set('preferred', 'now');
 
-    this.ranges = new Map<string, [number[], number[], number[], number[]]>();
+    this.ranges = new Map<string, Array<[number, number]>>();
     this.ranges.set('cost', [
       [0, 499],
       [500, 749],
