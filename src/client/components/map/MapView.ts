@@ -21,14 +21,15 @@ export default class MapView extends View {
     this.map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/thomaslorincz/cjx0png073khh1cpap7m6449e',
-      bounds: [[-115.11466, 53.04465], [-112.16116, 54.06214]],
+      bounds: [[-114.30936, 53.26922], [-112.57710, 53.78888]],
       attributionControl: false,
       dragRotate: false,
       pitchWithRotate: false,
       minZoom: 8,
-    }).addControl(new mapboxgl.AttributionControl({
-      customAttribution: attribution,
-    }));
+    }).addControl(
+        new mapboxgl.AttributionControl({customAttribution: attribution}),
+        'top-left'
+    );
 
     this.styling = {
       cost: [

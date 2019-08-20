@@ -29,7 +29,8 @@ body {
   height: 100%;
   top: 0;
   right: 0;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .panel {
@@ -41,15 +42,17 @@ body {
   z-index: 1;
   background-color: white;
   padding: 0 20px;
-  margin: 12px;
+  margin: 8px 16px;
 }
 
 .panel:first-child {
-  margin-bottom: 6px;
+  margin-top: 16px;
+  margin-bottom: 8px;
 }
 
 .panel:last-child {
-  margin-top: 6px;
+  margin-top: 8px;
+  margin-bottom: 16px;
 }
 
 .title {
@@ -111,7 +114,8 @@ body {
   font-size: 14px;
   font-family: "Montserrat", sans-serif;
   pointer-events: none;
-  margin-left: 10px;
+  padding: 3px;
+  margin-left: 5px;
 }
 
 .selectable {
@@ -143,6 +147,15 @@ body {
 
 .blue-colour {color: #2345B2;}
 .blue-colour.inverted {color: #FFCC00;}
+
+.chart-container {
+  display: flex;
+  position: relative;
+  width: 240px;
+  height: 240px;
+  padding: 0 10px;
+  justify-self: center;
+}
 
 #info-button {
   cursor: pointer;
