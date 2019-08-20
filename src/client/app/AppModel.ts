@@ -5,6 +5,9 @@ import StatisticsDatum from '../lib/StatisticsDatum';
 
 /** Model that stores and controls the app's data and state. */
 export default class AppModel extends Model {
+  private mapLoaded: boolean = false;
+  private dataLoaded: boolean = false;
+
   private scenario: string = 'now';
   private property: string = 'cost';
   private overlay: string = 'city';
@@ -69,12 +72,20 @@ export default class AppModel extends Model {
           proportion: parseInt(preferredData[i]['proportion']),
         });
       }
+
+      this.dataLoaded = true;
+      if (this.mapLoaded && this.dataLoaded) {
+        this.dispatchDisplayUpdate();
+      }
     });
   }
 
   /** A method for dispatching the initial draw event of the app. */
   public initialDraw(): void {
-    this.dispatchDisplayUpdate();
+    this.mapLoaded = true;
+    if (this.mapLoaded && this.dataLoaded) {
+      this.dispatchDisplayUpdate();
+    }
   }
 
   /** Update the currently selected scenario. */
