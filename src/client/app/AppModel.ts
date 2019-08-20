@@ -15,7 +15,6 @@ export default class AppModel extends Model {
 
   private animationInterval: number = undefined;
   private coloursInverted: boolean = false;
-  private chart: string = 'pie-chart';
   private ranges: Map<string, [number[], number[], number[], number[]]>;
 
   private readonly data: Map<string, {cost: number; proportion: number}[]>;
@@ -120,43 +119,28 @@ export default class AppModel extends Model {
     this.dispatchDisplayUpdate();
   }
 
-  public updateChart(chart: string): void {
-    this.chart = chart;
-    this.dispatchDisplayUpdate();
-  }
-
   public updateStatistics(): void {
     const data = this.data.get(this.scenario);
     const ranges = this.ranges.get(this.property);
 
-    const counts = [0, 0, 0, 0];
-
-    const statistics: StatisticsDatum[] = [
-      new StatisticsDatum(0, '', 0),
-      new StatisticsDatum(1, '', 0),
-      new StatisticsDatum(2, '', 0),
-      new StatisticsDatum(3, '', 0),
-    ];
+    const statistics: StatisticsDatum[] = [];
+    for (let id = 0; id < 4; id++) {
+      statistics.push(new StatisticsDatum(id, '', 0));
+    }
 
     for (let i = 0; i < data.length; i++) {
-      if (ranges[0][0] <= data[i][this.property]
-          && data[i][this.property] <= ranges[0][1]) {
-        counts[0]++;
-      } else if (ranges[1][0] <= data[i][this.property]
-          && data[i][this.property] <= ranges[1][1]) {
-        counts[1]++;
-      } else if (ranges[2][0] <= data[i][this.property]
-          && data[i][this.property] <= ranges[2][1]) {
-        counts[2]++;
-      } else if (ranges[3][0] <= data[i][this.property]
-          && data[i][this.property] <= ranges[3][1]) {
-        counts[3]++;
+      for (let j = 0; j < ranges.length; j++) {
+        if (ranges[j][0] <= data[i][this.property]
+            && data[i][this.property] <= ranges[j][1]) {
+          statistics[j].value++;
+        }
       }
     }
 
-    for (let i = 0; i < counts.length; i++) {
-      statistics[i].value = Math.round((counts[i] / data.length) * 100);
-      statistics[i].label = `${statistics[i].value}%`;
+    for (let id = 0; id < statistics.length; id++) {
+      statistics[id].value
+          = Math.round((statistics[id].value / data.length) * 100);
+      statistics[id].label = `${statistics[id].value}%`;
     }
 
     this.statistics = statistics;

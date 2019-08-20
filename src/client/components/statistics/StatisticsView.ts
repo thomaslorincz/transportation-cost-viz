@@ -4,22 +4,23 @@ import * as d3 from 'd3';
 import StatisticsDatum from '../../lib/StatisticsDatum';
 
 export default class StatisticsView extends View {
+  private readonly width: number = 240;
+  private readonly height: number = 240;
+  private readonly margin: number = 10;
+
   public constructor(container: Element, emitter: EventEmitter) {
     super(container, emitter);
   }
 
   public draw(data: StatisticsDatum[], inverted: boolean): void {
-    const width = 240;
-    const height = 240;
-
     const x = d3.scaleBand()
         .domain(data.map((datum): string => datum.id.toString()))
-        .range([0, width])
+        .range([0, this.width])
         .padding(0.2);
 
     const y = d3.scaleLinear()
         .domain([0, 50])
-        .range([height, 10]);
+        .range([this.height, this.margin]);
 
     const svg = d3.select('#bar-chart');
 
@@ -36,7 +37,7 @@ export default class StatisticsView extends View {
               : ['#FFCC00', '#FF4111', '#BA1BBA', '#2345B2'][i];
         })
         .attr('y', (datum): number => y(datum.value))
-        .attr('height', (datum): number => height - y(datum.value));
+        .attr('height', (datum): number => this.height - y(datum.value));
 
     svg.selectAll('text')
         .data(data)
@@ -49,6 +50,6 @@ export default class StatisticsView extends View {
         .text((datum): string => datum.label)
         .transition()
         .duration(1000)
-        .attr('y', (datum): number => y(datum.value) + 20);
+        .attr('y', (datum): number => y(datum.value) + (2 * this.margin));
   }
 }

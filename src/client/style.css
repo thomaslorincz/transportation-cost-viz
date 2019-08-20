@@ -157,33 +157,6 @@ body {
   justify-self: center;
 }
 
-.chart-button-container {
-  display: flex;
-  position: relative;
-  flex-direction: row;
-  margin: 6px 0;
-}
-
-.chart-button {
-  display: flex;
-  position: relative;
-  flex-direction: row;
-  align-items: center;
-  box-sizing: border-box;
-  width: 120px;
-  margin: 2px 4px;
-  padding: 2px 8px;
-}
-
-.chart-button-label {
-  display: inline-block;
-  position: relative;
-  font-size: 14px;
-  font-family: "Montserrat", sans-serif;
-  pointer-events: none;
-  padding: 3px;
-}
-
 #info-button {
   cursor: pointer;
   transition: background-color 250ms ease;
