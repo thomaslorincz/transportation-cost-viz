@@ -25,6 +25,12 @@
 <body>
 <div id="map"></div>
 <div id="panels">
+    <div id="info-button" class="panel">
+        <div class="title">
+            <i class="material-icons">info_outline</i>
+            <div class="title-text">About</div>
+        </div>
+    </div>
   <div id="legend" class="panel">
     <div class="title">Legend</div>
     <div class="divider"></div>
@@ -106,12 +112,6 @@
       </div>
     </div>
   </div>
-  <div id="info-button" class="panel">
-    <div class="title">
-      <i class="material-icons">info_outline</i>
-      <div class="title-text">Information</div>
-    </div>
-  </div>
 </div>
 <div id="info-window">
   <div id="info-page">
@@ -124,30 +124,28 @@
     <p>Each drawn dot represents 1 household. Due to the large volume of data, only 50% of households per scenario are shown (a uniformly random sample).</p>
     <p>The data is produced for the entire CMA, but only Edmonton and St. Albert data is being considered because residential parcel boundary files are not yet available for other regions.</p>
     <p>Now Scenario (2020) is based on current population and transportation trends. It includes 431,380 households (215,690 shown).</p>
-    <p>Business as Usual Scenario (2065) is a prediction of the CMA in 2065. It includes 711,158 households (355,579 shown).</p>
-    <p>City Preferred Scenario (2065) is a prediction of the CMA in 2065. It includes 809,922 households (404,961 shown).</p>
+    <p>Business as Usual Scenario (2065) is a prediction of the CMA in 2065. This scenario forecasts an auto-oriented city with more urban sprawl. It includes 711,158 households (355,579 shown).</p>
+    <p>City Preferred Scenario (2065) is a prediction of the CMA in 2065. This scenario forecasts a city that is more transit-oriented with less urban sprawl. It includes 809,922 households (404,961 shown).</p>
     <h2>Analysis</h2>
-    <p>To calculate monthly transportation cost for each household, several daily trip and household data points are compounded:</p>
+    <p>To calculate the monthly transportation cost for each household, several daily trip and household data points are compounded:</p>
     <ul>
-      <li>The average cost of maintaining 1 vehicle is set to $3750/year.</li>
-      <li>The cost per kilometer travelled is $0.225. 17.5 cents for fuel + 5 cents for depreciation and marginal insurance.</li>
-      <li>On average, 330 will require vehicle travel (if a vehicle is used for commuting).</li>
-      <li>On average, 300 will require transit travel (if transit is used for commuting).</li>
-      <li>The average cost for a vehicle license is $25 per person.</li>
-      <li>Transit fare is $3 (without a transit pass).</li>
-      <li>Transit pass cost varies by person age:</li>
-      <li style="list-style-type: none">
-        <ul>
-          <li>Preschool age or younger: Free</li>
-          <li>Elementary age: $560/year</li>
-          <li>Junior High age: $560/year</li>
-          <li>Senior High age: $560/year</li>
-          <li>Post-Secondary age: $800/year</li>
-          <li>Work/Adult age: $1200/year</li>
-          <li>Senior/Elder: $135/year</li>
-        </ul>
-      </li>
+      <li>The average cost of owning and maintaining 1 vehicle is set to $3750/year.</li>
+      <li>The cost per vehicle kilometer travelled is $0.225. 17.5 cents for fuel + 5 cents for depreciation and marginal insurance.</li>
+      <li>On average, 330 days of the year will require vehicle travel (if a vehicle is used for commuting).</li>
+      <li>On average, 300 days of the year will require transit travel (if transit is used for commuting).</li>
+      <li>The average cost for a vehicle license is $25/year.</li>
+      <li>The average transit fare is $3.00 (without a transit pass). Fare is $3.50 for individual trips. Books of 10 tickets are $25.00 on average.</li>
+      <li>Transit pass costs vary by person type:</li>
     </ul>
+    <table style="width:100%">
+      <tr><th>Type</th><th>Cost</th></tr>
+      <tr><td>Children (0-12)</td><td>Free (if accompanied by adult)</td></tr>
+      <tr><td>Youth (17 and under)</td><td>$900/year ($75/month)</td></tr>
+      <tr><td>Adult (18-64)</td><td>$1164/year ($97/month)</td></tr>
+      <tr><td>Post-Secondary Adult (18-64)</td><td>$1062/year ($88.50/month)</td></tr>
+      <tr><td>Senior (65+)</td><td>$136.50/year</td></tr>
+      <tr><td>Low Income Senior (65+)</td><td>$59.25/year</td></tr>
+    </table>
   </div>
 </div>
 </body>

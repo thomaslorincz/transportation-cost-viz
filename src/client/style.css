@@ -43,6 +43,7 @@ body {
   background-color: white;
   padding: 0 20px;
   margin: 8px 16px;
+  border: 2px solid gainsboro;
 }
 
 .panel:first-child {
@@ -53,6 +54,15 @@ body {
 .panel:last-child {
   margin-top: 8px;
   margin-bottom: 16px;
+}
+
+#info-button {
+  cursor: pointer;
+  transition: background-color 250ms ease;
+}
+
+#info-button:hover {
+  background-color: gainsboro;
 }
 
 .title {
@@ -69,8 +79,9 @@ body {
   pointer-events: none;
 }
 
-.title-text {
-  margin-left: 8px;
+.title > .material-icons {
+  font-size: 22px;
+  margin: 0 8px;
 }
 
 .panel-entry-container {
@@ -155,15 +166,6 @@ body {
   height: 240px;
   padding: 0 10px;
   justify-self: center;
-}
-
-#info-button {
-  cursor: pointer;
-  transition: background-color 250ms ease;
-}
-
-#info-button:hover {
-  background-color: gainsboro;
 }
 
 #info-window {
@@ -258,6 +260,10 @@ body {
 
 #info-page li:last-child {
   margin-top: 2px;
+}
+
+#info-page th {
+  text-align: left;
 }
 
 .material-icons {
