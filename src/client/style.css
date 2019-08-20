@@ -96,10 +96,9 @@ body {
   position: relative;
   flex-direction: row;
   align-items: center;
-  box-sizing: border-box;
   width: 240px;
   margin: 2px 0;
-  padding: 2px 8px;
+  padding: 2px 9px;
 }
 
 .panel-entry:first-child {
@@ -131,7 +130,7 @@ body {
 
 .selectable {
   cursor: pointer;
-  border-radius: 22px;
+  border-radius: 25px;
   border: 1px solid white;
   transition: background-color 250ms ease, border 250ms ease;
 }
