@@ -10,8 +10,8 @@ export default class MapView extends View {
   public constructor(container: Element, emitter: EventEmitter) {
     super(container, emitter);
 
-    mapboxgl.accessToken = 'pk.eyJ1IjoidGhvbWFzbG9yaW5jeiIsImEiOiJjamx5aXVwaH' +
-        'AxamZzM3dsaWdkZ3Q2eGJyIn0.mXjlp9c3l2-NBoS1uaEUdw';
+    mapboxgl.accessToken = 'pk.eyJ1IjoidGhvbWFzbG9yaW5jeiIsImEiOiJjamx5aXVwaHAx'
+      + 'amZzM3dsaWdkZ3Q2eGJyIn0.mXjlp9c3l2-NBoS1uaEUdw';
 
     const href = 'href="https://github.com/thomaslorincz"';
     const rel = 'rel="noopener"';
