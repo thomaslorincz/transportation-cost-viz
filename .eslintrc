@@ -8,6 +8,7 @@
   "rules": {
     "require-jsdoc": "off",
     "valid-jsdoc": "off",
+    "operator-linebreak": ["error", "before"],
     "@typescript-eslint/no-inferrable-types": "off",
     "@typescript-eslint/no-explicit-any": "off"
   },
