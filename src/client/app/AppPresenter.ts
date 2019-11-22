@@ -28,25 +28,25 @@ export default class AppPresenter extends Presenter<AppModel, View> {
 
     this.legendView = new LegendView(
         document.getElementById('legend'),
-        this.emitter
+        this.emitter,
     );
     new LegendPresenter(this.model, this.legendView, this.emitter);
 
     this.statisticsView = new StatisticsView(
         document.getElementById('statistics'),
-        this.emitter
+        this.emitter,
     );
     new StatisticsPresenter(this.model, this.statisticsView, this.emitter);
 
     this.overlayView = new OverlayView(
         document.getElementById('overlay'),
-        this.emitter
+        this.emitter,
     );
     new OverlayPresenter(this.model, this.overlayView, this.emitter);
 
     this.infoView = new InfoView(
         document.getElementById('info-button'),
-        this.emitter
+        this.emitter,
     );
     new InfoPresenter(this.model, this.infoView, this.emitter);
 
@@ -59,7 +59,7 @@ export default class AppPresenter extends Presenter<AppModel, View> {
           this.overlayView.draw(overlay);
           this.infoView.draw(infoVisible);
           this.statisticsView.draw(statistics, inverted);
-        }
+        },
     );
   }
 }

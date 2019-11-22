@@ -28,7 +28,7 @@ export default class MapView extends View {
       minZoom: 8,
     }).addControl(
         new mapboxgl.AttributionControl({customAttribution: attribution}),
-        'top-left'
+        'top-left',
     );
 
     this.styling = {
