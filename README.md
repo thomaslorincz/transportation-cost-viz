@@ -1,3 +1,4 @@
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 # Transportation Cost Visualization
 A visualization of transportation costs in the Edmonton Central Metropolitan Area in 2065
 ## Website
