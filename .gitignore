@@ -1,5 +1,4 @@
 node_modules/
 .idea/
 dist/
-assets/data/*.csv
-test/test.build.js
+*.env
