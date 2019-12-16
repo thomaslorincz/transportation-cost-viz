@@ -19,8 +19,11 @@ export interface ZoneFeature extends Feature {
 }
 
 interface Props {
-  hovered: number;
-  zoneToColour: Map<number, number[]>;
+  residences: ResidenceFeature[];
+  zones: ZoneFeature[];
+  hovered: number; // The ID of the hovered ZoneFeature
+  colours: number[][]; // Array of [r, g, b, a]
+  zoneToColour: Map<number, number>; // Zone ID to index in colours array
   onHover: Function;
 }
 
@@ -33,7 +36,7 @@ export class MapView extends React.Component<Props, {}> {
   }
 
   public render(): React.ReactNode {
-    const { hovered, zoneToColour } = this.props;
+    const { residences, zones, hovered, colours, zoneToColour } = this.props;
 
     return (
       <div className="map">
@@ -41,18 +44,18 @@ export class MapView extends React.Component<Props, {}> {
           layers={[
             new GeoJsonLayer({
               id: 'residences',
-              data: [],
+              data: residences,
               pickable: false,
               stroked: false,
               filled: true,
               extruded: false,
               getFillColor: (f: ResidenceFeature): number[] => {
-                return zoneToColour.get(f.properties.zone);
+                return colours[zoneToColour.get(f.properties.zone)];
               }
             }),
             new GeoJsonLayer({
               id: 'zones',
-              data: [],
+              data: zones,
               pickable: true,
               stroked: true,
               filled: false,
