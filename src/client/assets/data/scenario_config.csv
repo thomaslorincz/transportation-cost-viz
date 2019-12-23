@@ -1,0 +1,4 @@
+file,id,label
+output_now.csv,now,Now Scenario (2020)
+output_bap.csv,bap,Business as Planned (2065)
+output_preferred.csv,preferred,Preferred City Plan (2065)
