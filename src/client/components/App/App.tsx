@@ -4,6 +4,7 @@ import './App.css';
 
 import { MapView } from '../MapView/MapView';
 import { LegendControl } from '../ControlPanel/LegendControl/LegendControl';
+import { StatisticsControl } from '../ControlPanel/StatisticsControl/StatisticsControl';
 
 export interface Household {
   lon: number;
@@ -129,6 +130,7 @@ export class App extends React.Component<{}, State> {
         <MapView households={this.state.households} />
         <div className="control-panel">
           <LegendControl scenarios={scenarios} />
+          <StatisticsControl />
         </div>
       </React.Fragment>
     );
