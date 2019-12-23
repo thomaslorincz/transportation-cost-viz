@@ -5,6 +5,7 @@ import './App.css';
 import { MapView } from '../MapView/MapView';
 import { LegendControl } from '../ControlPanel/LegendControl/LegendControl';
 import { StatisticsControl } from '../ControlPanel/StatisticsControl/StatisticsControl';
+import { OverlayControl } from '../ControlPanel/OverlayControl/OverlayControl';
 
 export interface Household {
   lon: number;
@@ -131,6 +132,7 @@ export class App extends React.Component<{}, State> {
         <div className="control-panel">
           <LegendControl scenarios={scenarios} />
           <StatisticsControl />
+          <OverlayControl />
         </div>
       </React.Fragment>
     );
