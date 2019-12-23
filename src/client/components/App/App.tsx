@@ -3,6 +3,7 @@ import * as d3 from 'd3-fetch';
 import './App.css';
 
 import { MapView } from '../MapView/MapView';
+import { LegendControl } from '../ControlPanel/LegendControl/LegendControl';
 
 export interface Household {
   lon: number;
@@ -118,9 +119,17 @@ export class App extends React.Component<{}, State> {
   }
 
   public render(): React.ReactNode {
+    const scenarios = [];
+    this.scenarios.forEach((value: Scenario) => {
+      scenarios.push([value.id, value.label]);
+    });
+
     return (
       <React.Fragment>
         <MapView households={this.state.households} />
+        <div className="control-panel">
+          <LegendControl scenarios={scenarios} />
+        </div>
       </React.Fragment>
     );
   }

@@ -23,7 +23,8 @@ code {
 :root {}
 
 .material-icons {
-    font-size: unset;
+    pointer-events: none;
+    user-select: none;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
 }
