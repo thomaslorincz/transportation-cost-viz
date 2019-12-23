@@ -1,0 +1,136 @@
+.control-panel {
+    display: flex;
+    position: fixed;
+    flex-direction: column;
+    width: auto;
+    height: 100%;
+    top: 0;
+    right: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.control {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    height: auto;
+    border-radius: 20px;
+    z-index: 1;
+    background-color: white;
+    padding: 0 20px;
+    margin: 8px 16px;
+    border: 2px solid gainsboro;
+}
+
+.control:first-child {
+    margin-top: 16px;
+    margin-bottom: 8px;
+}
+
+.control:last-child {
+    margin-top: 8px;
+    margin-bottom: 16px;
+}
+
+.title {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    font-family: "Montserrat", sans-serif;
+    font-size: 18px;
+    height: 22px;
+    line-height: 22px;
+    margin: 6px 0;
+    pointer-events: none;
+}
+
+.title > .material-icons {
+    font-size: 22px;
+    margin: 0 8px;
+}
+
+.control-entry-container {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    margin: 6px 0;
+}
+
+.control-entry {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    align-items: center;
+    width: 240px;
+    margin: 2px 0;
+    padding: 2px 9px;
+}
+
+.control-entry:first-child {
+    margin-top: 0;
+}
+
+.control-entry:last-child {
+    margin-bottom: 0;
+}
+
+.divider {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 2px;
+    background-color: gainsboro;
+    border-radius: 1px;
+}
+
+.entry-label {
+    display: inline-block;
+    position: relative;
+    font-size: 14px;
+    font-family: "Montserrat", sans-serif;
+    pointer-events: none;
+    padding: 3px;
+    margin-left: 5px;
+}
+
+.selectable {
+    cursor: pointer;
+    border-radius: 25px;
+    border: 1px solid white;
+    transition: background-color 250ms ease, border 250ms ease;
+}
+
+.selectable:hover {
+    border: 1px solid grey;
+}
+
+.selectable.selected {
+    background-color: gainsboro;
+    border: 1px solid grey;
+}
+
+.coloured {transition: color 500ms ease;}
+
+.yellow-colour {color: #FFCC00;}
+.yellow-colour.inverted {color: #2345B2;}
+
+.red-colour {color: #FF4111;}
+.red-colour.inverted {color: #BA1BBA;}
+
+.purple-colour {color: #BA1BBA;}
+.purple-colour.inverted {color: #FF4111;}
+
+.blue-colour {color: #2345B2;}
+.blue-colour.inverted {color: #FFCC00;}
+
+.chart-container {
+    display: flex;
+    position: relative;
+    width: 240px;
+    height: 240px;
+    padding: 0 10px;
+    justify-self: center;
+}
