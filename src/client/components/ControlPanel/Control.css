@@ -114,18 +114,6 @@
 
 .coloured {transition: color 500ms ease;}
 
-.yellow-colour {color: #FFCC00;}
-.yellow-colour.inverted {color: #2345B2;}
-
-.red-colour {color: #FF4111;}
-.red-colour.inverted {color: #BA1BBA;}
-
-.purple-colour {color: #BA1BBA;}
-.purple-colour.inverted {color: #FF4111;}
-
-.blue-colour {color: #2345B2;}
-.blue-colour.inverted {color: #FFCC00;}
-
 .chart-container {
     display: flex;
     position: relative;

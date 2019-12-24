@@ -24,17 +24,22 @@ interface Scenario {
 
 interface State {
   loading: boolean;
-  hovered: number;
-  hoverX: number;
-  hoverY: number;
-  colours: number[][];
+  animating: boolean;
+  activeScenario: string;
+  activeProperty: string;
+  colours: string[];
   households: Household[];
 }
 
 export class App extends React.Component<{}, State> {
   private scenarios: Map<string, Scenario> = new Map<string, Scenario>();
-  private activeScenario: string;
 
+  private costLabels = [
+    '$0 - $499/month',
+    '$500 - $749/month',
+    '$750 - $999/month',
+    '$1000+/month'
+  ];
   private costRanges = new Map<number, number>([
     [0, 499],
     [500, 749],
@@ -42,6 +47,7 @@ export class App extends React.Component<{}, State> {
     [1000, Number.MAX_SAFE_INTEGER]
   ]);
 
+  private proportionLabels = ['0% - 4%', '5% - 9%', '10% - 14%', '15%+'];
   private proportionRanges = new Map<number, number>([
     [0, 4],
     [5, 9],
@@ -56,22 +62,17 @@ export class App extends React.Component<{}, State> {
 
     this.state = {
       loading: true,
-      hovered: null,
-      hoverX: 0,
-      hoverY: 0,
-      colours: [
-        [0, 0, 0, 0],
-        [35, 69, 178, 255],
-        [186, 27, 186, 255],
-        [255, 65, 17, 255],
-        [255, 204, 0, 255]
-      ],
+      animating: false,
+      activeScenario: '',
+      activeProperty: 'cost',
+      colours: ['#FFCC00', '#FF4111', '#BA1BBA', '#2345B2'],
       households: []
     };
 
     Promise.all([d3.csv('./scenario_config.csv')]).then(([config]) => {
       this.scenarioSequence = new Map<string, string>();
 
+      let activeScenario = '';
       let lastEntryId = '';
       config.forEach(
         (entry: { file: string; id: string; label: string }, i: number) => {
@@ -83,7 +84,7 @@ export class App extends React.Component<{}, State> {
           });
 
           if (i === 0) {
-            this.activeScenario = entry.id;
+            activeScenario = entry.id;
             lastEntryId = entry.id;
           } else if (i === config.length - 1) {
             this.scenarioSequence.set(entry.id, config[0].id);
@@ -109,16 +110,26 @@ export class App extends React.Component<{}, State> {
 
       this.setState({
         loading: false,
-        households: this.scenarios.get(this.activeScenario).data
+        activeScenario,
+        households: this.scenarios.get(activeScenario).data
       });
     });
   }
 
-  private invertColours(): void {
-    const colours = [];
-    colours.push(this.state.colours[0]);
-    colours.push(this.state.colours.slice(1).reverse());
-    this.setState({ colours });
+  private handleScenarioClicked(scenario: string): void {
+    this.setState({ activeScenario: scenario });
+  }
+
+  private handleAnimateClicked(): void {
+    this.setState({ animating: !this.state.animating });
+  }
+
+  private handlePropertyClicked(property: string): void {
+    this.setState({ activeProperty: property });
+  }
+
+  private handleInvertColoursClicked(): void {
+    this.setState({ colours: this.state.colours.reverse() });
   }
 
   public render(): React.ReactNode {
@@ -131,7 +142,28 @@ export class App extends React.Component<{}, State> {
       <React.Fragment>
         <MapView households={this.state.households} />
         <div className="control-panel">
-          <LegendControl scenarios={scenarios} />
+          <LegendControl
+            scenarios={scenarios}
+            animating={this.state.animating}
+            scenario={this.state.activeScenario}
+            property={this.state.activeProperty}
+            colours={this.state.colours}
+            binLabels={
+              this.state.activeProperty === 'cost'
+                ? this.costLabels
+                : this.proportionLabels
+            }
+            onScenarioClicked={(scenario): void =>
+              this.handleScenarioClicked(scenario)
+            }
+            onAnimateClicked={(): void => this.handleAnimateClicked()}
+            onPropertyClicked={(property): void =>
+              this.handlePropertyClicked(property)
+            }
+            onInvertColoursClicked={(): void =>
+              this.handleInvertColoursClicked()
+            }
+          />
           <StatisticsControl />
           <OverlayControl />
         </div>
