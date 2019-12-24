@@ -14,6 +14,9 @@ export interface Feature {
 
 interface Props {
   households: Household[];
+  range: [number, number][];
+  colours: [number, number, number][];
+  property: string;
 }
 
 export class MapView extends React.Component<Props, {}> {
@@ -25,7 +28,7 @@ export class MapView extends React.Component<Props, {}> {
   }
 
   public render(): React.ReactNode {
-    const { households } = this.props;
+    const { households, range, colours, property } = this.props;
 
     return (
       <div className="map">
@@ -35,13 +38,26 @@ export class MapView extends React.Component<Props, {}> {
               id: 'households',
               data: households,
               pickable: false,
-              getPosition: (hh: Household): number[] => [hh.lon, hh.lat]
+              radiusScale: 2,
+              radiusMinPixels: 1,
+              getPosition: (hh: Household): number[] => [hh.lon, hh.lat, 0],
+              getRadius: 1,
+              getFillColor: (hh: Household): number[] => {
+                for (let j = 0; j < range.length; j++) {
+                  if (
+                    range[j][0] <= hh[property] &&
+                    hh[property] <= range[j][1]
+                  ) {
+                    return colours[j];
+                  }
+                }
+              }
             })
           ]}
           initialViewState={{
             longitude: -113.4938,
             latitude: 53.5461,
-            zoom: 8,
+            zoom: 9,
             pitch: 0,
             bearing: 0
           }}

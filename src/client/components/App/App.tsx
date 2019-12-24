@@ -35,7 +35,10 @@ interface State {
   animating: boolean;
   activeScenario: string;
   activeProperty: string;
-  colours: string[];
+  colours: {
+    hex: string[];
+    rgba: [number, number, number][];
+  };
   households: Household[];
   statistics: Statistic[];
 }
@@ -49,7 +52,7 @@ export class App extends React.Component<{}, State> {
     '$750 - $999/month',
     '$1000+/month'
   ];
-  private costRange = [
+  private costRange: [number, number][] = [
     [0, 499],
     [500, 749],
     [750, 1000],
@@ -57,7 +60,7 @@ export class App extends React.Component<{}, State> {
   ];
 
   private proportionLabels = ['0% - 4%', '5% - 9%', '10% - 14%', '15%+'];
-  private proportionRange = [
+  private proportionRange: [number, number][] = [
     [0, 4],
     [5, 9],
     [10, 14],
@@ -74,7 +77,15 @@ export class App extends React.Component<{}, State> {
       animating: false,
       activeScenario: '',
       activeProperty: 'cost',
-      colours: ['#FFCC00', '#FF4111', '#BA1BBA', '#2345B2'],
+      colours: {
+        hex: ['#FFCC00', '#FF4111', '#BA1BBA', '#2345B2'],
+        rgba: [
+          [255, 204, 0],
+          [255, 65, 17],
+          [186, 27, 186],
+          [35, 69, 178]
+        ]
+      },
       households: [],
       statistics: []
     };
@@ -176,7 +187,12 @@ export class App extends React.Component<{}, State> {
   }
 
   private handleInvertColoursClicked(): void {
-    this.setState({ colours: this.state.colours.reverse() });
+    this.setState({
+      colours: {
+        hex: this.state.colours.hex.reverse(),
+        rgba: this.state.colours.rgba.reverse()
+      }
+    });
   }
 
   public render(): React.ReactNode {
@@ -187,14 +203,23 @@ export class App extends React.Component<{}, State> {
 
     return (
       <React.Fragment>
-        <MapView households={this.state.households} />
+        <MapView
+          households={this.state.households}
+          range={
+            this.state.activeProperty === 'cost'
+              ? this.costRange
+              : this.proportionRange
+          }
+          colours={this.state.colours.rgba}
+          property={this.state.activeProperty}
+        />
         <div className="control-panel">
           <LegendControl
             scenarios={scenarios}
             animating={this.state.animating}
             scenario={this.state.activeScenario}
             property={this.state.activeProperty}
-            colours={this.state.colours}
+            colours={this.state.colours.hex}
             binLabels={
               this.state.activeProperty === 'cost'
                 ? this.costLabels
@@ -213,7 +238,7 @@ export class App extends React.Component<{}, State> {
           />
           <StatisticsControl
             data={this.state.statistics}
-            colours={this.state.colours}
+            colours={this.state.colours.hex}
           />
         </div>
         <LoadingScreen loading={this.state.loading} />
