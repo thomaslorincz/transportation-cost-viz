@@ -1,0 +1,22 @@
+name: CD
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Push and Release Container
+        env:
+          MAPBOX_TOKEN: ${{ secrets.MAPBOX_TOKEN }}
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: |
+          touch .env
+          echo "MAPBOX_TOKEN=$MAPBOX_TOKEN" >> .env
+          docker login --username=tlorincz@ualberta.ca --password=$HEROKU_API_KEY registry.heroku.com
+          heroku container:push web -a cost-viz
+          heroku container:release web -a cost-viz
