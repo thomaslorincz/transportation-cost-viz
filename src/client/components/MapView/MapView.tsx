@@ -51,6 +51,12 @@ export class MapView extends React.Component<Props, {}> {
                     return colours[j];
                   }
                 }
+              },
+              transitions: {
+                getFillColor: 1000
+              },
+              updateTriggers: {
+                getFillColor: [range, colours]
               }
             })
           ]}
