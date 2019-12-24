@@ -16,14 +16,7 @@ interface Props {
 
 export class LegendControl extends React.Component<Props, {}> {
   public render(): React.ReactNode {
-    const {
-      scenarios,
-      animating,
-      scenario,
-      property,
-      colours,
-      binLabels
-    } = this.props;
+    const { scenarios, scenario, property, colours, binLabels } = this.props;
 
     return (
       <div className="control legend-control">
@@ -47,16 +40,16 @@ export class LegendControl extends React.Component<Props, {}> {
               </div>
             );
           })}
-          <div
-            id="scenario-animate"
-            className={`control-entry selectable${
-              animating ? ' selected' : ''
-            }`}
-            onClick={(): void => this.props.onAnimateClicked()}
-          >
-            <i className="material-icons">play_circle_outline</i>
-            <div className="entry-label">Animate</div>
-          </div>
+          {/*<div*/}
+          {/*  id="scenario-animate"*/}
+          {/*  className={`control-entry selectable${*/}
+          {/*    animating ? ' selected' : ''*/}
+          {/*  }`}*/}
+          {/*  onClick={(): void => this.props.onAnimateClicked()}*/}
+          {/*>*/}
+          {/*  <i className="material-icons">play_circle_outline</i>*/}
+          {/*  <div className="entry-label">Animate</div>*/}
+          {/*</div>*/}
         </div>
         <div className="divider" />
         {/* Data Metric (Cost/Proportion) Section */}
