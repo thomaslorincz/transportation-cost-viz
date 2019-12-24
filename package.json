@@ -34,7 +34,7 @@
   },
   "homepage": "https://github.com/thomaslorincz/transportation-cost-viz#readme",
   "dependencies": {
-    "d3-fetch": "^1.1.2",
+    "d3": "^5.14.2",
     "deck.gl": "^7.3.10",
     "express": "^4.17.1",
     "express-static-gzip": "^2.0.5",
