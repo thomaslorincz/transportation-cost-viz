@@ -5,7 +5,6 @@ import './App.css';
 import { MapView } from '../MapView/MapView';
 import { LegendControl } from '../ControlPanel/LegendControl/LegendControl';
 import { StatisticsControl } from '../ControlPanel/StatisticsControl/StatisticsControl';
-import { OverlayControl } from '../ControlPanel/OverlayControl/OverlayControl';
 import { LoadingScreen } from '../LoadingScreen/LoadingScreen';
 
 export interface Household {
@@ -165,7 +164,6 @@ export class App extends React.Component<{}, State> {
             }
           />
           <StatisticsControl />
-          <OverlayControl />
         </div>
         <LoadingScreen loading={this.state.loading} />
       </React.Fragment>
