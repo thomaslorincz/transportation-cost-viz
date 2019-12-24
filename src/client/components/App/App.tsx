@@ -189,8 +189,8 @@ export class App extends React.Component<{}, State> {
   private handleInvertColoursClicked(): void {
     this.setState({
       colours: {
-        hex: this.state.colours.hex.reverse(),
-        rgba: this.state.colours.rgba.reverse()
+        hex: Array.from(this.state.colours.hex.reverse()),
+        rgba: Array.from(this.state.colours.rgba.reverse())
       }
     });
   }
